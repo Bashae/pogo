@@ -3,6 +3,9 @@
     <h1 style="font-size: 14px;">Hello Adventurer!</h1>
     <h2 style="font-size: 12px;">How can I help you out today?</h2>
     <h1 style="margin-top: 20px;border-top: 1px solid #fff;padding-top: 10px;box-sizing: border-box;width:100%;">{{ selection.title }}</h1>
+    <button ion-button icon-only class="button--login" (click)="checkSessionStatus()">
+      <ion-icon name="power"></ion-icon>
+    </button>
   </ion-item>
 
   <ion-grid class="selection-grid">
@@ -43,23 +46,21 @@
   <div [ngSwitch]="selection.title">
     <ion-list *ngSwitchCase='"Find Nearby Players"'>
       <ion-list-header>Nearby Players</ion-list-header>
-      <ion-item>
-        <ion-thumbnail item-start>
+      <ion-item *ngFor="let player of nearbyPlayers">
+        <!-- <ion-thumbnail item-start>
           <img src="img/thumbnail-totoro.png">
-        </ion-thumbnail>
-        <h2>Pendragon</h2>
-        <p>Within 5 Mi.</p>
-        <button ion-button clear item-end>Chat</button>
-      </ion-item>
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="img/thumbnail-totoro.png">
-        </ion-thumbnail>
-        <h2>Pendragon</h2>
-        <p>Within 5 Mi.</p>
+        </ion-thumbnail> -->
+        <h2>{{ player.un }}</h2>
+        <p>Within {{ getCeilDistance(player.queryMetadata.distance) }} Mi.</p>
         <button ion-button clear item-end>Chat</button>
       </ion-item>
     </ion-list>
+
+    <ion-fab right bottom>
+      <button ion-fab color="primary" (click)="setCoordinates()">
+        <ion-icon name="locate"></ion-icon>
+      </button>
+    </ion-fab>
   </div>
 
   <div [ngSwitch]="selection.title">
@@ -72,7 +73,7 @@
 
   <div [ngSwitch]="selection.title">
     <ion-list *ngSwitchCase='"Events in the Area"'>
-      <ion-list-header>Events</ion-list-header>
+      <ion-list-header>Nearby Events</ion-list-header>
       <ion-item>
       </ion-item>
     </ion-list>

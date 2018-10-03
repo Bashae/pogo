@@ -14,3 +14,30 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+ion-list-header, .list-header-md, .list-header {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 0;
+}
+
+$mysticPrimaryColor: #3B4cca;
+$valorPrimaryColor: #FF0000;
+$instinctPrimaryColor: #FFDE00;
+
+$mystic: $mysticPrimaryColor;
+$valor: $valorPrimaryColor;
+$instinct: $instinctPrimaryColor;
+
+.header--item {
+    position: relative;
+}
+
+.button--login {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    background: transparent;
+    box-shadow: none;
+    color: rgba(255, 255, 255, .25);
+    font-size: 22px;
+}
