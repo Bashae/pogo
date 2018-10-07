@@ -28,7 +28,7 @@ export class GeoPage {
   nearbyGroups: any[];
   nearbyEvents: any[];
   radius: number = 2;
-  selection: any = {};
+  selection: any = {"title": ""};
   mapLat;
   mapLon;
   autocomplete: string = "";
