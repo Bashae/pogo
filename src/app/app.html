@@ -1,4 +1,29 @@
-<uni-header></uni-header>
+<ion-header class="universal-header">
+    <ion-grid>
+        <ion-row>
+        <ion-col col-3>
+            <button ion-button icon-only class="button--default button--home" (click)="goToHomePage()">
+            <ion-icon name="home"></ion-icon>
+            </button>
+        </ion-col>
+        <ion-col col-3>
+            <button ion-button icon-only class="button--default button--locations" (click)="goToGeoPage()">
+            <ion-icon name="locate"></ion-icon>
+            </button>
+        </ion-col>
+        <ion-col col-3>
+            <!-- <button ion-button icon-only class="button--login">
+            <ion-icon name="home"></ion-icon>
+            </button> -->
+        </ion-col>
+        <ion-col col-3>
+            <button ion-button icon-only class="button--default button--login" (click)="checkSessionStatus()">
+            <ion-icon name="power"></ion-icon>
+            </button>
+        </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-header>
 
 <div *ngIf="auth.user">Is logged in</div>
 

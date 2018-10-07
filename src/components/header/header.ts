@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { HomePage } from '../../pages/home/home';
+import { GeoPage } from '../../pages/geo/geo';
 
 @Component({
   selector: 'uni-header',
@@ -6,11 +8,17 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
-  text: string;
+  constructor(
+    
+  ) {
 
-  constructor() {
-    console.log('Hello HeaderComponent Component');
-    this.text = 'Hello World';
+  }
+
+  goToHomePage() {
+    // this.nav.setRoot(HomePage);
+  }
+
+  goToGeoPage() {
   }
 
 }

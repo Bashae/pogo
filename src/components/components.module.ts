@@ -3,6 +3,7 @@ import { HeaderComponent } from './header/header';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
 import { InputGeoSearchComponent } from './input-geo-search/input-geo-search';
+
 @NgModule({
 	declarations: [HeaderComponent,
     InputGeoSearchComponent],
@@ -11,7 +12,7 @@ import { InputGeoSearchComponent } from './input-geo-search/input-geo-search';
 		IonicModule
 	],
 	exports: [HeaderComponent,
-    InputGeoSearchComponent],
+	InputGeoSearchComponent],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ComponentsModule {}

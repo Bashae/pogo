@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, NavController, NavParams } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -22,6 +22,7 @@ import { RegistrationPage } from '../pages/registration/registration';
 import { GoogleMaps } from "@ionic-native/google-maps";
 import { GroupPage } from '../pages/group/group';
 import { ComponentsModule } from '../components/components.module';
+import { GeoPage } from '../pages/geo/geo';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyC_f0a9UhqZniUM87FtEKp32FbDJXI7wj8",
@@ -38,6 +39,7 @@ export const firebaseConfig = {
     HomePage,
     LoginPage,
     RegistrationPage,
+    GeoPage,
     GroupPage
   ],
   imports: [
@@ -52,6 +54,7 @@ export const firebaseConfig = {
     HomePage,
     LoginPage,
     RegistrationPage,
+    GeoPage,
     GroupPage
   ],
   providers: [
