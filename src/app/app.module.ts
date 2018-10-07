@@ -21,6 +21,7 @@ import { RegistrationPage } from '../pages/registration/registration';
 
 import { GoogleMaps } from "@ionic-native/google-maps";
 import { GroupPage } from '../pages/group/group';
+import { ComponentsModule } from '../components/components.module';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyC_f0a9UhqZniUM87FtEKp32FbDJXI7wj8",
@@ -42,7 +43,8 @@ export const firebaseConfig = {
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

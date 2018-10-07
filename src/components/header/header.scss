@@ -1,0 +1,19 @@
+.universal-header {
+    background: $mystic;
+
+    .grid { 
+        padding: 0;
+    }
+
+    .button {
+        height: auto;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .col {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

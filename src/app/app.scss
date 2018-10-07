@@ -45,13 +45,10 @@ $instinct: $instinctPrimaryColor;
 }
 
 .button--login {
-    position: absolute;
-    top: 0;
-    right: 10px;
     background: transparent;
     box-shadow: none;
-    color: rgba(255, 255, 255, .25);
-    font-size: 22px;
+    color: rgba(255, 255, 255, .5);
+    font-size: 12px;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
@@ -60,4 +57,12 @@ $instinct: $instinctPrimaryColor;
     font-size: 24px;
     font-weight: 900;
     font-family: 'Poppins', sans-serif;
+}
+
+.ion-page {
+    margin-top: 35px;
+}
+
+ion-fab[bottom] {
+    bottom: 45px;
 }
