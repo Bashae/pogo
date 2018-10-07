@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { AuthProvider } from '../providers/auth/auth';
 import { GeoPage } from '../pages/geo/geo';
+import { LoginPage } from '../pages/login/login';
 
 @Component({
   templateUrl: 'app.html'
@@ -34,5 +35,17 @@ export class MyApp {
 
   goToGeoPage() {
     this.nav.setRoot(GeoPage);
+  }
+
+  checkSessionStatus() {
+    if(!this.auth.user){
+      this.nav.setRoot(LoginPage);
+    } else {
+      this.logOut();
+    }
+  }
+
+  logOut() {
+    this.auth.logOut();
   }
 }

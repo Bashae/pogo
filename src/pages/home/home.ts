@@ -16,6 +16,7 @@ import {
   Marker,
   Environment
 } from '@ionic-native/google-maps';
+import { UserProvider } from '../../providers/user/user';
 
 @Component({
   selector: 'page-home',
@@ -41,7 +42,8 @@ export class HomePage {
     private geolocation: Geolocation,
     public auth: AuthProvider,
     private googleMaps: GoogleMaps,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    public user: UserProvider
   ) {
     this.selection.title = "Find Nearby Players";
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
@@ -216,17 +218,5 @@ export class HomePage {
 
   goToGroupPage(group) {
     this.navCtrl.push(GroupPage, {'group': group});
-  }
-
-  checkSessionStatus() {
-    if(this.auth.user) {
-      this.logOut();
-    } else {
-      this.navCtrl.push(LoginPage);
-    }
-  }
-
-  logOut() {
-    this.auth.logOut();
   }
 }
