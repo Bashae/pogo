@@ -1,18 +1,66 @@
-<!--
-  Generated template for the GroupPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>group</ion-title>
+    <ion-title>{{ group.n }} Pokemon Group</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content>
+  <img src="https://scontent-atl3-1.xx.fbcdn.net/v/t31.0-8/26841261_171808613430470_6840328542440818659_o.jpg?_nc_cat=111&oh=bbc608dd878c064b9745020d577da001&oe=5C5B4DCF" alt="">
+  <button ion-button medium class="button--join-group">
+    Request to join
+  </button>
+  <!-- <ion-list>
+    <ion-list-header>
+      Located In:
+    </ion-list-header>
+    <ion-item>
+      <h1 style="font-size: 20px;text-align: center;">Concord, North Carolina</h1>
+    </ion-item>
+    <ion-list-header>
+      Members:
+    </ion-list-header>
+    <ion-item>
+      <h1 style="font-size: 20px;text-align: center;">300</h1>
+    </ion-item>
+  </ion-list> -->
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <h1 class="title title--location">Concord, North Carolina</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <h2 class="title title--member-count">365 Members</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 style="text-align: center;">
+        <ion-grid class="grid--member-count">
+          <ion-row>
+            <ion-col col-4>
+              <img src="assets/imgs/mystic.svg" alt="">
+            </ion-col>
+            <ion-col col-4>
+              <img src="assets/imgs/instinct.svg" alt="">
+            </ion-col>
+            <ion-col col-4>
+              <img src="assets/imgs/valor.svg" alt="">
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-4>
+              <h3 class="pokefont pokefont--mystic">100</h3>
+            </ion-col>
+            <ion-col col-4>
+              <h3 class="pokefont pokefont--instinct">25</h3>
+            </ion-col>
+            <ion-col col-4>
+              <h3 class="pokefont pokefont--valor">5</h3>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

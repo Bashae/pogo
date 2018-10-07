@@ -22,7 +22,7 @@ export class AuthProvider {
         this.isLoggedIn = true;
         this.user = user;
         this.userId = this.user.uid;
-        // this.userService.setUser(this.user.uid);
+        this.userService.setUser(this.user.uid);
       } else {
         this.isLoggedIn = false;
         this.user = null;

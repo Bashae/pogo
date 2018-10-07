@@ -1,18 +1,17 @@
-<!--
-  Generated template for the LoginPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>login</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
-
+  <ion-list *ngIf="!auth || !auth.user">
+    <ion-list inset>
+      <ion-item>
+        <ion-label>Username</ion-label>
+        <ion-input [(ngModel)]="username" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Password</ion-label>
+        <ion-input [(ngModel)]="password" type="password"></ion-input>
+      </ion-item>
+      <button class="button--login-now" ion-button (click)="attemptLogin()">Sign In</button>
+    </ion-list>
+    <button ion-button block (click)="goToRegistrationPage()">Sign Up</button>
+  </ion-list>
 </ion-content>
+  

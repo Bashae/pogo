@@ -9,6 +9,18 @@ page-home {
             padding-left: 16px;
         }
     }
+    .group--image {
+        width: 80px;
+        height: 80px;
+        overflow: hidden;
+
+        img {
+            height: 100%;
+            min-width: none;
+            max-width: none;
+            width: auto;
+        }
+    }
     .selection-grid {
         border-bottom: 1px solid #3b4cca;
         box-sizing: border-box;

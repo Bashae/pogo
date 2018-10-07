@@ -32,6 +32,18 @@ $instinct: $instinctPrimaryColor;
     position: relative;
 }
 
+.no-padding--left {
+    padding-left: 0;
+
+    input {
+        padding-left: 10px;
+    }
+
+    .label {
+        padding-left: 16px;
+    }
+}
+
 .button--login {
     position: absolute;
     top: 0;
@@ -40,4 +52,12 @@ $instinct: $instinctPrimaryColor;
     box-shadow: none;
     color: rgba(255, 255, 255, .25);
     font-size: 22px;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+.pokefont {
+    font-size: 24px;
+    font-weight: 900;
+    font-family: 'Poppins', sans-serif;
 }

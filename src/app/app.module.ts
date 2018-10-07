@@ -17,10 +17,13 @@ import { GeoProvider } from '../providers/geo/geo';
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { LoginPage } from '../pages/login/login';
+import { RegistrationPage } from '../pages/registration/registration';
 
+import { GoogleMaps } from "@ionic-native/google-maps";
+import { GroupPage } from '../pages/group/group';
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyCZ1ct5zv-XU7Dh-5mpBIu5s4J7kQKetoQ",
+  apiKey: "AIzaSyC_f0a9UhqZniUM87FtEKp32FbDJXI7wj8",
   authDomain: "pogo-pal-1532794775743.firebaseapp.com",
   databaseURL: "https://pogo-pal-1532794775743.firebaseio.com",
   projectId: "pogo-pal-1532794775743",
@@ -32,7 +35,9 @@ export const firebaseConfig = {
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    RegistrationPage,
+    GroupPage
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,9 @@ export const firebaseConfig = {
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    RegistrationPage,
+    GroupPage
   ],
   providers: [
     AngularFireAuth,
@@ -56,7 +63,9 @@ export const firebaseConfig = {
     AuthProvider,
     GroupProvider,
     Geolocation,
-    GeoProvider
+    GeoProvider,
+    GoogleMaps,
+    GoogleMaps
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
