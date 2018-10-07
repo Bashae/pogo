@@ -44,11 +44,15 @@ $instinct: $instinctPrimaryColor;
     }
 }
 
-.button--login {
+.button--default {
     background: transparent;
     box-shadow: none;
-    color: rgba(255, 255, 255, .5);
+    color: rgba(255, 255, 255, 1);
     font-size: 12px;
+}
+
+.button--login {
+    color: rgba(255, 255, 255, .5);
 }
 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
