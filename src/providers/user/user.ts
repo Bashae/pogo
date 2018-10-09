@@ -35,7 +35,7 @@ export class UserProvider {
         this.currentUserDoc = this.userCollection.doc(element.id);
         this.currentUserDoc.get().subscribe(ref => {
           this.currentUser = ref.data();
-          this.getUserFriends(ref.data);
+          this.getUserFriends(ref.data());
         })
       });
     });
