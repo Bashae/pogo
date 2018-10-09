@@ -50,6 +50,10 @@ export class HomePage {
     this.locations = [];
   }
 
+  getUsersFriends() {
+    
+  }
+
   loadMap() {
     let element: HTMLElement = document.getElementById('map_canvas')
     let mapOptions: GoogleMapOptions = {

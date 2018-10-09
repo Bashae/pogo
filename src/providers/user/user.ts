@@ -51,12 +51,24 @@ export class UserProvider {
     });
   }
 
-  getUserGroups() {
+  getUserGroups(v) {
+    let groups = this.groupCollection.ref
+      .where('ui', '==', v)
+      .get();
 
+      groups.then(res => {
+      console.log(res);
+    });
   }
 
-  getUserEvents() {
+  getUserEvents(v) {
+    let events = this.eventCollection.ref
+      .where('ui', '==', v)
+      .get();
 
+    events.then(res => {
+      console.log(res);
+    });
   }
 
   updateUserLocation(geopoint) {
