@@ -35,6 +35,8 @@ export class GeoPage {
   locations: any[];
   location: any;
   GoogleAutocomplete;
+  trackUserBool: boolean = false;
+  subscription;
 
   constructor(
     public navCtrl: NavController,
@@ -98,21 +100,44 @@ export class GeoPage {
   }
 
   setCoordinates() {
+    if(!this.trackUserBool) {
+      this.geolocation.getCurrentPosition().then(resp => {
+        this.mapLat = resp.coords.latitude;
+        this.mapLon = resp.coords.longitude;
+        this.loadMap();
+        this.getNearbyPlayers(resp.coords.latitude, resp.coords.longitude);
+        this.trackUser();
+      });
+    } else {
+      this.subscription.unsubscribe();
+    }
+
+    this.trackUserBool = !this.trackUserBool;
+  }
+
+  getGroupsByGeo() {
+    console.log('get groups by geo: a');
+
     this.geolocation.getCurrentPosition().then(resp => {
+      console.log('get groups by geo: b');
       this.mapLat = resp.coords.latitude;
       this.mapLon = resp.coords.longitude;
-      this.loadMap();
-      this.getNearbyPlayers(resp.coords.latitude, resp.coords.longitude);
-      this.trackUser();
+      this.getAreaGroups(this.mapLat, this.mapLon);
     });
   }
 
-  // setRadius() {
-  //   this.geo.changeRadius(this.radius);
-  // }
+  getEventsByGeo() {
+    console.log('get events by geo: a');
+
+    this.geolocation.getCurrentPosition().then(resp => {
+      console.log('get events by geo: b');
+      this.mapLat = resp.coords.latitude;
+      this.mapLon = resp.coords.longitude;
+      this.getAreaEvents(this.mapLat, this.mapLon);
+    });
+  }
 
   trackUser() {
-    const subscription = this.geolocation.watchPosition();
     let lastUpdate, currentUpdate;
     lastUpdate = 0;
     currentUpdate = 1;
@@ -121,14 +146,16 @@ export class GeoPage {
       currentUpdate++;
     }, 15000);
 
-    subscription.subscribe(position => {
-      this.mapLat = position.coords.latitude;
-      this.mapLon = position.coords.longitude;
-
-      if(lastUpdate !== currentUpdate) {
-        lastUpdate = currentUpdate;
-        this.geo.changePosition(position);
-      }
+    this.subscription = this.geolocation.watchPosition().subscribe(position => {
+      this.subscription.subscribe(position => {
+        this.mapLat = position.coords.latitude;
+        this.mapLon = position.coords.longitude;
+  
+        if(lastUpdate !== currentUpdate) {
+          lastUpdate = currentUpdate;
+          this.geo.changePosition(position);
+        }
+      })
     })
   }
 

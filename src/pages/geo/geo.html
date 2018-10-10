@@ -41,17 +41,12 @@
   <div [ngSwitch]="selection.title">
     <ion-list *ngSwitchCase='"Find Nearby Players"'>
       <div style="height: 200px;width: 100%;display:block;max-width:100%;" id="map_canvas" *ngIf="mapLat"></div>
-      <!-- <ion-item>
-        <ion-label stacked>Distance: {{ radius }} Mi.</ion-label>
-        <ion-range min="1" max="5" [(ngModel)]="radius" (ionChange)="setRadius()" color="primary">
-          <ion-label range-left>1</ion-label>
-          <ion-label range-right>5</ion-label>
-        </ion-range>
-      </ion-item> -->
       <ion-list-header>Nearby Players</ion-list-header>
       <ion-item class="no-padding--left">
         <span style="color: #ddd;font-size: 14px;">Click the locator to find players near you.</span>
-        <ion-icon name="locate" item-end style="color: #ddd;"></ion-icon>
+        <button ion-button icon-only item-end (click)="setCoordinates()" class="button--locator button--locator__faded" [class.active]="trackUserBool">
+          <ion-icon name="locate"></ion-icon>
+        </button>
       </ion-item>
       <ion-scroll scrollY="true" style="height: 200px;">
         <ion-item *ngFor="let player of nearbyPlayers">
@@ -64,12 +59,6 @@
         </ion-item>
       </ion-scroll>
     </ion-list>
-
-    <!-- <ion-fab right bottom>
-        <button ion-fab color="primary" (click)="trackUser()">
-          <ion-icon name="locate"></ion-icon>
-        </button>
-      </ion-fab> -->
   </div>
 
   <div [ngSwitch]="selection.title">
@@ -77,7 +66,9 @@
       <ion-list-header>Nearby Groups</ion-list-header>
       <ion-item *ngIf="!location" class="no-padding--left">
         <ion-icon name="search" item-end style="color: #ddd;"></ion-icon>
-        <ion-icon name="locate" item-end style="color: #ddd;"></ion-icon>
+        <button ion-button icon-only item-end class="button--locator button--locator__faded" (click)="getGroupsByGeo()">
+          <ion-icon name="locate" item-end style="color: #ddd;"></ion-icon>
+        </button>
         <ion-input placeholder="Enter a City, or click the locator!" [(ngModel)]="autocomplete" (keyup)="getAutocompleteResults()"></ion-input>
       </ion-item>
       <ion-item *ngIf="locations.length > 0">
@@ -112,7 +103,9 @@
       <ion-list-header>Nearby Events</ion-list-header>
       <ion-item class="no-padding--left">
         <ion-icon name="search" item-end style="color: #ddd;"></ion-icon>
-        <ion-icon name="locate" item-end style="color: #ddd;"></ion-icon>
+        <button ion-button icon-only item-end class="button--locator button--locator__faded" (click)="getEventsByGeo()">
+          <ion-icon name="locate" item-end style="color: #ddd;"></ion-icon>
+        </button>
         <ion-input placeholder="Enter a City, or click the locator!" [(ngModel)]="autocomplete" (keyup)="getAutocompleteResults()"></ion-input>
       </ion-item>
       <ion-scroll scrollY="true" style="height: 200px;">

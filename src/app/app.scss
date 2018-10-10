@@ -55,6 +55,16 @@ $instinct: $instinctPrimaryColor;
     color: rgba(255, 255, 255, .5);
 }
 
+.button--locator {
+    background: transparent;
+    box-shadow: none;
+    color: #ddd;
+
+    &.active {
+        color: blue;
+    }
+}
+
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
 .pokefont {

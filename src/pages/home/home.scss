@@ -68,4 +68,22 @@ page-home {
         font-size: 14px;
         color: #ddd;
     }
+
+    // New
+    .playerItem {
+        padding-left: 0;
+
+        .item-inner {
+            padding-left: 15px;
+        }
+        button.button {
+            padding: 0 10px;
+            height: 40px;
+            font-size: 20px;
+        }
+        ion-thumbnail, ion-thumbnail[item-start] {
+            padding: 0;
+            margin: 0;
+        }
+    }
 }

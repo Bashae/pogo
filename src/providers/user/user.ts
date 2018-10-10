@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreDocument, AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserProvider {
@@ -36,6 +37,8 @@ export class UserProvider {
         this.currentUserDoc.get().subscribe(ref => {
           this.currentUser = ref.data();
           this.getUserFriends(ref.data());
+          this.getUserGroups(ref.data());
+          this.getUserEvents(ref.data());
         })
       });
     });
@@ -43,31 +46,37 @@ export class UserProvider {
 
   getUserFriends(v) {
     let friends = this.friendCollection.ref
-      .where('ui', '==', v)
+      .where('ui', '==', v.ui)
       .get();
 
     friends.then(res => {
-      console.log(res);
-    });
+      res.forEach(it => {
+        this.userFriends = it.data().li;
+      })
+    })
   }
 
   getUserGroups(v) {
     let groups = this.groupCollection.ref
-      .where('ui', '==', v)
+      .where('ui', '==', v.ui)
       .get();
 
-      groups.then(res => {
-      console.log(res);
+    groups.then(res => {
+      res.forEach(it => {
+        this.userGroups = it.data().li;
+      })
     });
   }
 
   getUserEvents(v) {
     let events = this.eventCollection.ref
-      .where('ui', '==', v)
+      .where('ui', '==', v.ui)
       .get();
 
     events.then(res => {
-      console.log(res);
+      res.forEach(it => {
+        this.userEvents = it.data().li;
+      })
     });
   }
 

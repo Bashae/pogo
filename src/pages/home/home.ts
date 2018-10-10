@@ -17,6 +17,7 @@ import {
   Environment
 } from '@ionic-native/google-maps';
 import { UserProvider } from '../../providers/user/user';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'page-home',
@@ -36,6 +37,8 @@ export class HomePage {
   location: any;
   GoogleAutocomplete;
 
+  userFriends: Observable<any>;
+
   constructor(
     public navCtrl: NavController,
     public geo: GeoProvider,
@@ -46,12 +49,9 @@ export class HomePage {
     public user: UserProvider
   ) {
     this.selection.title = "Find Nearby Players";
+    this.userFriends = this.user.userFriends;
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.locations = [];
-  }
-
-  getUsersFriends() {
-    
   }
 
   loadMap() {
