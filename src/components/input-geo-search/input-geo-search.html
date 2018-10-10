@@ -1,4 +1,11 @@
-<!-- Generated template for the InputGeoSearchComponent component -->
-<div>
-  {{text}}
-</div>
+<ion-item class="no-padding--left">
+  <ion-icon name="search" item-end style="color: #ddd;"></ion-icon>
+  <ion-input placeholder="Enter a City, or click the locator!" [(ngModel)]="autocomplete" (keyup)="getAutocompleteResults()"></ion-input>
+</ion-item>
+<ion-item *ngIf="locations.length > 0">
+  <ion-list>
+    <ion-item *ngFor="let loc of locations" (click)="selectLocation(loc)">
+      <h2>{{ loc.description }}</h2>
+    </ion-item>
+  </ion-list>
+</ion-item>

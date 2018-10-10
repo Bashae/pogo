@@ -1,4 +1,12 @@
-<!-- Generated template for the GroupListComponent component -->
-<div>
-  {{text}}
-</div>
+<ion-list>
+  <ion-list-header>My Groups</ion-list-header>
+  <input-geo-search></input-geo-search>
+  <ion-item *ngFor="let group of user.userGroups" (click)="goToGroupPage(group)" class="group--item">
+    <ion-thumbnail item-start class="group--image">
+      <img src="https://scontent-atl3-1.xx.fbcdn.net/v/t31.0-8/26841261_171808613430470_6840328542440818659_o.jpg?_nc_cat=111&oh=bbc608dd878c064b9745020d577da001&oe=5C5B4DCF" alt="">
+    </ion-thumbnail>
+    <h2>{{ group.n }} Pokemon Group</h2>
+    <p>250 members</p>
+    <a href="#" style="font-size: 12px;text-decoration: none;">Click to visit their page</a>
+  </ion-item>
+</ion-list>

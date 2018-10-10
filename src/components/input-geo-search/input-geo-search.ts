@@ -1,22 +1,51 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 
-/**
- * Generated class for the InputGeoSearchComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'input-geo-search',
   templateUrl: 'input-geo-search.html'
 })
 export class InputGeoSearchComponent {
+  autocomplete: string = "";
+  GoogleAutocomplete;
+  locations: any[];
+  location: any;
 
-  text: string;
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+  ) {
+    this.locations = [];
+    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
+  }
 
-  constructor() {
-    console.log('Hello InputGeoSearchComponent Component');
-    this.text = 'Hello World';
+  getAutocompleteResults() {
+    if (this.autocomplete == '') {
+      this.locations = [];
+      return;
+    }
+    this.GoogleAutocomplete.getPlacePredictions({input: this.autocomplete}, res => {
+      if(res !== null) {
+        this.locations = res;
+        this.changeDetector.detectChanges();
+        console.log('what is locations');
+        console.log(this.locations);
+      }
+    });
+
+    // this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete },
+    // (predictions, status) => {
+    //   console.log('a');
+    //   console.log(predictions);
+    //   console.log('b');
+    //   console.log(status);
+    //   this.autocompleteItems = [];
+    //   this.zone.run(() => {
+    //     predictions.forEach((prediction) => {
+    //       console.log('what is prediction');
+    //       console.log(prediction);
+    //       this.autocompleteItems.push(prediction);
+    //     });
+    //   });
+    // });
   }
 
 }

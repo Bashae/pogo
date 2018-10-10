@@ -1,22 +1,16 @@
 import { Component } from '@angular/core';
+import { UserProvider } from '../../providers/user/user';
 
-/**
- * Generated class for the GroupListComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'group-list',
   templateUrl: 'group-list.html'
 })
 export class GroupListComponent {
 
-  text: string;
+  constructor(
+    public user: UserProvider
+  ) {
 
-  constructor() {
-    console.log('Hello GroupListComponent Component');
-    this.text = 'Hello World';
   }
 
 }
