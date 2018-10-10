@@ -8,15 +8,21 @@ import { UserProvider } from '../user/user';
 
 @Injectable()
 export class GeoProvider {
-  geo = geofirex.init(firebase);
-  points: Observable<any>;
-  radius = new BehaviorSubject(10);
-  location = {latitude: "", longitude: ""};
+  geo = geofirex.init(firebase)
+  points: Observable<any>
+  radius = new BehaviorSubject(10)
+  location = {latitude: "", longitude: ""}
+
+  nearbyFriends: any;
+  nearbyEvents:  any;
+  nearbyGroups:  any;
 
   constructor ( 
     public afs: AngularFirestore,
     public userService: UserProvider
-  ) {}
+  ) {
+    
+  }
 
   // changeRadius(v) {
   //   this.radius.next(v);

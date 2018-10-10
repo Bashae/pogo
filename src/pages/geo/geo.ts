@@ -234,6 +234,7 @@ export class GeoPage {
         let lon = results[0].geometry.location.lng();
 
         _that.getAreaGroups(lat, lon);
+        _that.getAreaEvents(lat, lon);
       }
     });
   }

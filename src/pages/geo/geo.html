@@ -108,6 +108,13 @@
         </button>
         <ion-input placeholder="Enter a City, or click the locator!" [(ngModel)]="autocomplete" (keyup)="getAutocompleteResults()"></ion-input>
       </ion-item>
+      <ion-item *ngIf="locations.length > 0">
+        <ion-list>
+          <ion-item *ngFor="let loc of locations" (click)="selectLocation(loc)">
+            <h2>{{ loc.description }}</h2>
+          </ion-item>
+        </ion-list>
+      </ion-item>
       <ion-scroll scrollY="true" style="height: 200px;">
         <ion-item *ngFor="let event of nearbyEvents">
           <h2>{{ event.n }}</h2>
