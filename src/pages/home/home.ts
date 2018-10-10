@@ -3,18 +3,13 @@ import { NavController } from 'ionic-angular';
 import { GeoProvider } from '../../providers/geo/geo';
 import { Geolocation } from '@ionic-native/geolocation';
 import { AuthProvider } from '../../providers/auth/auth';
-import { LoginPage } from '../login/login';
 import { GroupPage } from '../group/group';
 
 import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
-  GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
-  Marker,
-  Environment
+  GoogleMapOptions
 } from '@ionic-native/google-maps';
 import { UserProvider } from '../../providers/user/user';
 import { Observable } from 'rxjs';
@@ -165,35 +160,6 @@ export class HomePage {
     events.subscribe(res => {
       this.nearbyEvents = res;
     });
-  }
-
-  getAutocompleteResults() {
-    if (this.autocomplete == '') {
-      this.locations = [];
-      return;
-    }
-    this.GoogleAutocomplete.getPlacePredictions({input: this.autocomplete}, res => {
-      if(res !== null) {
-        this.locations = res;
-        this.changeDetector.detectChanges();
-      }
-    });
-
-    // this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete },
-    // (predictions, status) => {
-    //   console.log('a');
-    //   console.log(predictions);
-    //   console.log('b');
-    //   console.log(status);
-    //   this.autocompleteItems = [];
-    //   this.zone.run(() => {
-    //     predictions.forEach((prediction) => {
-    //       console.log('what is prediction');
-    //       console.log(prediction);
-    //       this.autocompleteItems.push(prediction);
-    //     });
-    //   });
-    // });
   }
 
   selectLocation(loc) {

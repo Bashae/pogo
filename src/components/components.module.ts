@@ -7,6 +7,7 @@ import { UserListComponent } from './user-list/user-list';
 import { EventListComponent } from './event-list/event-list';
 import { GroupListComponent } from './group-list/group-list';
 import { GeoLocationsListComponent } from './geo-locations-list/geo-locations-list';
+import { InputSearchComponent } from './input-search/input-search';
 
 @NgModule({
 	declarations: [HeaderComponent,
@@ -14,7 +15,8 @@ import { GeoLocationsListComponent } from './geo-locations-list/geo-locations-li
     UserListComponent,
     EventListComponent,
     GroupListComponent,
-    GeoLocationsListComponent],
+    GeoLocationsListComponent,
+    InputSearchComponent],
 	imports: [
 		CommonModule,
 		IonicModule
@@ -24,7 +26,8 @@ import { GeoLocationsListComponent } from './geo-locations-list/geo-locations-li
     UserListComponent,
     EventListComponent,
     GroupListComponent,
-    GeoLocationsListComponent],
+    GeoLocationsListComponent,
+    InputSearchComponent],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ComponentsModule {}

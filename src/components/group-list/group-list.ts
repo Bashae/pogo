@@ -6,11 +6,12 @@ import { UserProvider } from '../../providers/user/user';
   templateUrl: 'group-list.html'
 })
 export class GroupListComponent {
+  groups: any[];
 
   constructor(
     public user: UserProvider
   ) {
-
+    this.groups = this.user.userGroups || [];
   }
 
 }
