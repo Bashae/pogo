@@ -76,19 +76,8 @@
   </div>
 
   <div [ngSwitch]="selection.title">
-    <ion-list *ngSwitchCase='"Events in the Area"'>
-      <ion-list-header>My Events</ion-list-header>
-      <ion-item class="no-padding--left">
-        <ion-icon name="search" item-end style="color: #ddd;"></ion-icon>
-        <ion-input placeholder="Enter a City, or click the locator!" [(ngModel)]="autocomplete" (keyup)="getAutocompleteResults()"></ion-input>
-      </ion-item>
-      <ion-scroll scrollY="true" style="height: 200px;">
-        <ion-item *ngFor="let event of user.userEvents">
-          <h2>{{ event.en }}</h2>
-        </ion-item>
-      </ion-scroll>
-    </ion-list>
-    
+    <event-list *ngSwitchCase='"Events in the Area"'></event-list>
+
     <ion-fab right bottom *ngIf="selection.title === 'Events in the Area'">
       <button ion-fab mini color="primary">
         <ion-icon name="add"></ion-icon>

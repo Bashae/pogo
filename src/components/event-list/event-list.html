@@ -1,0 +1,12 @@
+<ion-list>
+  <ion-list-header>My Events</ion-list-header>
+  <input-search 
+    [inputType]='"event"'
+    [items]="events"></input-search>
+
+  <ion-scroll scrollY="true" style="height: 200px;">
+    <ion-item *ngFor="let event of user.userEvents">
+      <h2>{{ event.en }}</h2>
+    </ion-item>
+  </ion-scroll>
+</ion-list>

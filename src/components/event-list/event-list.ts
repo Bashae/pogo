@@ -1,22 +1,19 @@
 import { Component } from '@angular/core';
+import { UserProvider } from '../../providers/user/user';
 
-/**
- * Generated class for the EventListComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'event-list',
   templateUrl: 'event-list.html'
 })
 export class EventListComponent {
+  events: any[];
 
-  text: string;
+  constructor(
+    public user: UserProvider
+  ) {}
 
-  constructor() {
-    console.log('Hello EventListComponent Component');
-    this.text = 'Hello World';
+  ngOnChanges() {
+    this.events = this.user.userGroups || [];
   }
 
 }
