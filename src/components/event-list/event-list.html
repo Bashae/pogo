@@ -5,7 +5,7 @@
     [items]="events"></input-search>
 
   <ion-scroll scrollY="true" style="height: 200px;">
-    <ion-item *ngFor="let event of user.userEvents">
+    <ion-item *ngFor="let event of events">
       <h2>{{ event.en }}</h2>
     </ion-item>
   </ion-scroll>

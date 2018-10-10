@@ -10,9 +10,7 @@ export class GroupListComponent {
 
   constructor(
     public user: UserProvider
-  ) {}
-
-  ngOnChanges() {
+  ) {
     this.groups = this.user.userGroups || [];
   }
 

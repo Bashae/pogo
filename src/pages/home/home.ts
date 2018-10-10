@@ -14,6 +14,9 @@ import {
 import { UserProvider } from '../../providers/user/user';
 import { Observable } from 'rxjs';
 
+import { AddGroupPage } from '../add-group/add-group';
+import { AddEventPage } from '../add-event/add-event';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -188,5 +191,13 @@ export class HomePage {
 
   goToGroupPage(group) {
     this.navCtrl.push(GroupPage, {'group': group});
+  }
+
+  goToAddGroupPage() {
+    this.navCtrl.push(AddGroupPage);
+  }
+
+  goToAddEventPage() {
+    this.navCtrl.push(AddEventPage);
   }
 }

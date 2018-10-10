@@ -1,0 +1,18 @@
+<ion-list>
+  <ion-list-header>My Friends</ion-list-header>
+  <ion-item class="no-padding--left">
+    <ion-icon name="search" item-end style="color: #ddd;"></ion-icon>
+    <ion-input placeholder="Search through friends."></ion-input>
+  </ion-item>
+  <ion-scroll scrollY="true" style="height: 200px;">
+    <ion-item *ngFor="let player of friends" class="playerItem">
+      <ion-thumbnail item-start>
+        <img src="https://scontent-atl3-1.xx.fbcdn.net/v/t1.0-9/42157390_2348884881794043_475666240757563392_o.jpg?_nc_cat=108&oh=a78c4254a319e3358614c5d501a52731&oe=5C6043C4">
+      </ion-thumbnail>
+      <h2>{{ player.fn }}</h2>
+      <p>{{ player.fn }}</p>
+      <button ion-button clear item-end><ion-icon name="contact"></ion-icon></button>
+      <button ion-button clear item-end><ion-icon name="text"></ion-icon></button>
+    </ion-item>
+  </ion-scroll>
+</ion-list>

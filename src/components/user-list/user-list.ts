@@ -1,22 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { UserProvider } from '../../providers/user/user';
 
-/**
- * Generated class for the UserListComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'user-list',
   templateUrl: 'user-list.html'
 })
 export class UserListComponent {
+  friends: any[];
 
-  text: string;
-
-  constructor() {
-    console.log('Hello UserListComponent Component');
-    this.text = 'Hello World';
+  constructor(
+    public user: UserProvider
+  ) {
+    this.friends = this.user.userFriends || [];   
   }
 
 }

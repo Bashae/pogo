@@ -10,10 +10,8 @@ export class EventListComponent {
 
   constructor(
     public user: UserProvider
-  ) {}
-
-  ngOnChanges() {
-    this.events = this.user.userGroups || [];
+  ) {
+    this.events = this.user.userEvents || [];
   }
 
 }

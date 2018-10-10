@@ -23,6 +23,8 @@ import { GoogleMaps } from "@ionic-native/google-maps";
 import { GroupPage } from '../pages/group/group';
 import { ComponentsModule } from '../components/components.module';
 import { GeoPage } from '../pages/geo/geo';
+import { AddEventPage } from '../pages/add-event/add-event';
+import { AddGroupPage } from '../pages/add-group/add-group';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyC_f0a9UhqZniUM87FtEKp32FbDJXI7wj8",
@@ -40,7 +42,9 @@ export const firebaseConfig = {
     LoginPage,
     RegistrationPage,
     GeoPage,
-    GroupPage
+    GroupPage,
+    AddEventPage,
+    AddGroupPage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +59,9 @@ export const firebaseConfig = {
     LoginPage,
     RegistrationPage,
     GeoPage,
-    GroupPage
+    GroupPage,
+    AddEventPage,
+    AddGroupPage
   ],
   providers: [
     AngularFireAuth,

@@ -5,6 +5,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { AuthProvider } from '../../providers/auth/auth';
 import { LoginPage } from '../login/login';
 import { GroupPage } from '../group/group';
+import { AddGroupPage } from '../add-group/add-group';
+import { AddEventPage } from '../add-event/add-event';
 
 import {
   GoogleMaps,
@@ -253,6 +255,14 @@ export class GeoPage {
     } else {
       this.navCtrl.push(LoginPage);
     }
+  }
+
+  goToAddGroupPage() {
+    this.navCtrl.push(AddGroupPage);
+  }
+
+  goToAddEventPage() {
+    this.navCtrl.push(AddEventPage);
   }
 
   logOut() {

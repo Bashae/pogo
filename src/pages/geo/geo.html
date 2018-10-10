@@ -92,7 +92,7 @@
     </ion-list>
 
     <ion-fab right bottom *ngIf="selection.title === 'Find Groups in the Area'">
-      <button ion-fab mini color="primary">
+      <button ion-fab mini color="primary" (click)="goToAddGroupPage()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-fab>    
@@ -123,8 +123,8 @@
     </ion-list>
     
     <ion-fab right bottom *ngIf="selection.title === 'Events in the Area'">
-      <button ion-fab mini color="primary">
-        <ion-icon name="menu"></ion-icon>
+      <button ion-fab mini color="primary" (click)="goToAddEventPage()">
+        <ion-icon name="add"></ion-icon>
       </button>
     </ion-fab>
   </div>
