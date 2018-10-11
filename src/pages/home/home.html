@@ -1,89 +1,36 @@
 <ion-content>
   <ion-item class="header-item" style="text-align: center;">
-    <h1 style="font-size:20px;">{{ selection.title }}</h1>
+    <h1 style="font-size:20px;">{{ selection }}</h1>
   </ion-item>
 
-  <ion-grid class="selection-grid">
-    <ion-row>
-      <ion-col col-4>
-        <button ion-button icon-only [class.active]='selection.title == "Find Nearby Players"' (click)='selection.title = "Find Nearby Players"'>
-          <ion-icon name="contact"></ion-icon>
-        </button>
-      </ion-col>
-      <ion-col col-4>
-        <button value="groups" ion-button icon-only [class.active]='selection.title == "Find Groups in the Area"' (click)='selection.title = "Find Groups in the Area"'>
-          <ion-icon name="contacts"></ion-icon>
-        </button>
-      </ion-col>
-      <ion-col col-4>
-        <button value="events" ion-button icon-only [class.active]='selection.title == "Events in the Area"' (click)='selection.title = "Events in the Area"'>
-          <ion-icon name="calendar"></ion-icon>
-        </button>
-      </ion-col>
-      <!-- <ion-col col-2>
-        <button value="looking" ion-button icon-only [class.active]='selection.title == "Looking for a Pokemon"' (click)='selection.title = "Looking for a Pokemon"'>
-          <ion-icon name="eye"></ion-icon>
-        </button>
-      </ion-col>
-      <ion-col col-2>
-        <button value="trade" ion-button icon-only [class.active]='selection.title == "Looking to Trade"' (click)='selection.title = "Looking to Trade"'>
-          <ion-icon name="swap"></ion-icon>
-        </button>
-      </ion-col>
-      <ion-col col-2>
-        <button value="gifts" ion-button icon-only [class.active]='selection.title == "Looking for a Gift buddy"' (click)='selection.title = "Looking for a Gift buddy"'>
-          <ion-icon name="basket"></ion-icon>
-        </button>
-      </ion-col> -->
-    </ion-row>
-  </ion-grid>
+  <grid-selection (typeChanged)="changeSelection($event)"></grid-selection>
 
-  <div [ngSwitch]="selection.title">
+  <div [ngSwitch]="selection">
     <user-list *ngSwitchCase='"Find Nearby Players"'></user-list>
   </div>
 
-  <div [ngSwitch]="selection.title">
+  <div [ngSwitch]="selection">
     <group-list *ngSwitchCase='"Find Groups in the Area"'></group-list>
 
-    <ion-fab right bottom *ngIf="selection.title === 'Find Groups in the Area'">
+    <ion-fab right bottom *ngIf="selection === 'Find Groups in the Area'">
       <button ion-fab mini color="primary" (click)="goToAddGroupPage()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-fab>    
   </div>
 
-  <div [ngSwitch]="selection.title">
+  <div [ngSwitch]="selection">
     <event-list *ngSwitchCase='"Events in the Area"'></event-list>
 
-    <ion-fab right bottom *ngIf="selection.title === 'Events in the Area'">
+    <ion-fab right bottom *ngIf="selection === 'Events in the Area'">
       <button ion-fab mini color="primary" (click)="goToAddEventPage()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-fab>
   </div>
 
-  <div [ngSwitch]="selection.title">
-    <ion-list *ngSwitchCase='"Looking for a Pokemon"'>
-      <ion-list-header>Pokemon Sightings</ion-list-header>
-      <ion-item>
-      </ion-item>
-    </ion-list>
+  <div [ngSwitch]="selection">
+    <list-pokemon *ngSwitchCase='"Looking for Pokemon"'></list-pokemon>
   </div>
-
-  <div [ngSwitch]="selection.title">
-    <ion-list *ngSwitchCase='"Looking to Trade"'>
-      <ion-list-header>Pokemon up for Trade</ion-list-header>
-      <ion-item>
-      </ion-item>
-    </ion-list>
-  </div>
-
-  <div [ngSwitch]="selection.title">
-    <ion-list *ngSwitchCase='"Looking for a Gift buddy"'>
-      <ion-list-header>Make a Gift Buddy!</ion-list-header>
-      <ion-item>
-      </ion-item>
-    </ion-list>
-    </div>
 </ion-content>
     

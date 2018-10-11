@@ -1,0 +1,24 @@
+<ion-grid class="selection-grid">
+  <ion-row>
+    <ion-col col-3>
+      <button value="looking" ion-button icon-only [class.active]='selection == "Looking for Pokemon"' (click)='changeType("Looking for Pokemon")'>
+        <ion-icon name="egg"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col col-3>
+      <button ion-button icon-only [class.active]='selection == "Find Nearby Players"' (click)='changeType("Find Nearby Players")'>
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col col-3>
+      <button value="groups" ion-button icon-only [class.active]='selection == "Find Groups in the Area"' (click)='changeType("Find Groups in the Area")'>
+        <ion-icon name="contacts"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col col-3>
+      <button value="events" ion-button icon-only [class.active]='selection == "Events in the Area"' (click)='changeType("Events in the Area")'>
+        <ion-icon name="calendar"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

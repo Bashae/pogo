@@ -1,0 +1,11 @@
+list-pokemon {
+    .no-padding--left {
+        .label {
+            margin: 0;
+            padding: 0;
+        }
+        .item-inner {
+            padding-right: 0 !important;
+        }
+    }
+}

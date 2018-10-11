@@ -8,6 +8,9 @@ import { EventListComponent } from './event-list/event-list';
 import { GroupListComponent } from './group-list/group-list';
 import { GeoLocationsListComponent } from './geo-locations-list/geo-locations-list';
 import { InputSearchComponent } from './input-search/input-search';
+import { OverlayNavigationComponent } from './overlay-navigation/overlay-navigation';
+import { GridSelectionComponent } from './grid-selection/grid-selection';
+import { ListPokemonComponent } from './list-pokemon/list-pokemon';
 
 @NgModule({
 	declarations: [HeaderComponent,
@@ -16,7 +19,10 @@ import { InputSearchComponent } from './input-search/input-search';
     EventListComponent,
     GroupListComponent,
     GeoLocationsListComponent,
-    InputSearchComponent],
+    InputSearchComponent,
+    OverlayNavigationComponent,
+    GridSelectionComponent,
+    ListPokemonComponent],
 	imports: [
 		CommonModule,
 		IonicModule
@@ -27,7 +33,10 @@ import { InputSearchComponent } from './input-search/input-search';
     EventListComponent,
     GroupListComponent,
     GeoLocationsListComponent,
-    InputSearchComponent],
+    InputSearchComponent,
+    OverlayNavigationComponent,
+    GridSelectionComponent,
+    ListPokemonComponent],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ComponentsModule {}

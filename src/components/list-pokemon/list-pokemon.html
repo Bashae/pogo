@@ -1,0 +1,34 @@
+<ion-list>
+  <ion-item class="no-padding--left">
+    <ion-segment [(ngModel)]="searchType">
+      <ion-segment-button value="raids">
+        Raids
+      </ion-segment-button>
+      <ion-segment-button value="quests">
+        Quests
+      </ion-segment-button>
+      <ion-segment-button value="trades">
+        Trades
+      </ion-segment-button>
+    </ion-segment>
+  </ion-item>
+  <div [ngSwitch]="searchType">
+    <ion-list *ngSwitchCase="'raids'">
+      <ion-item>
+        <h2>Raids</h2>
+      </ion-item>
+    </ion-list>
+  
+    <ion-list *ngSwitchCase="'quests'">
+      <ion-item>
+        <h2>Quests</h2>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'trades'">
+      <ion-item>
+        <h2>Trades</h2>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-list>

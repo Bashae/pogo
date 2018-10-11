@@ -27,7 +27,7 @@ export class HomePage {
   nearbyGroups: any[];
   nearbyEvents: any[];
   radius: number = 2;
-  selection: any = {};
+  selection: string;
   mapLat;
   mapLon;
   autocomplete: string = "";
@@ -46,10 +46,14 @@ export class HomePage {
     private changeDetector: ChangeDetectorRef,
     public user: UserProvider
   ) {
-    this.selection.title = "Find Nearby Players";
+    this.selection = "Looking for Pokemon";
     this.userFriends = this.user.userFriends;
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.locations = [];
+  }
+
+  changeSelection(ev) {
+    this.selection = ev;
   }
 
   loadMap() {
