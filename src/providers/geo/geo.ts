@@ -24,15 +24,10 @@ export class GeoProvider {
     
   }
 
-  // changeRadius(v) {
-  //   this.radius.next(v);
-  // }
-
   changePosition(v) {
     this.location.latitude = v.coords.latitude;
     this.location.longitude = v.coords.longitude;
     let newGeoPoint = this.getGeoPoint(this.location.latitude, this.location.longitude);
-    console.log(newGeoPoint);
     // this.userService.updateUserLocation(newGeoPoint);
   }
 
@@ -49,6 +44,34 @@ export class GeoProvider {
         return this.geo.collection('users').within(center, r, field);
       })
     )
+  }
+
+  getNearbyRaids(lat, lon) {
+    const field = 'pos';
+    let center = this.getGeoPoint(lat, lon);
+
+    return this.geo.collection('gy', ref =>
+      ref.where('cr', '==', true)
+        .limit(15))
+        .within(center, 10, field);
+  }
+
+  getNearbyQuests(lat, lon) {
+    const field = 'pos';
+    let center = this.getGeoPoint(lat, lon);
+
+    return this.geo.collection('gy', ref =>
+      ref.limit(15))
+          .within(center, 5, field);
+  }
+
+  getNearbyTrades(lat, lon) {
+    const field = 'pos';
+    let center = this.getGeoPoint(lat, lon);
+
+    return this.geo.collection('tr', ref =>
+      ref.limit(15))
+          .within(center, 5, field);
   }
 
   getAreaGroups(lat, lon, rad) {
