@@ -14,20 +14,29 @@
   </ion-item>
   <div [ngSwitch]="searchType">
     <ion-list *ngSwitchCase="'raids'">
-      <ion-item>
-        <h2>Raids</h2>
+      <ion-item *ngFor="let raid of nearbyRaids">
+        {{ raid.n }}
+      </ion-item>
+      <ion-item *ngIf="nearbyRaids === 0">
+        <h1>No Current Raids Nearby</h1>
       </ion-item>
     </ion-list>
   
     <ion-list *ngSwitchCase="'quests'">
-      <ion-item>
-        <h2>Quests</h2>
+      <ion-item *ngFor="let quest of nearbyQuests">
+        {{ quest.n }}
+      </ion-item>
+      <ion-item *ngIf="nearbyQuests === 0">
+        <h1>No Current Quests Nearby</h1>
       </ion-item>
     </ion-list>
 
     <ion-list *ngSwitchCase="'trades'">
-      <ion-item>
-        <h2>Trades</h2>
+      <ion-item *ngFor="let trade of nearbyTrades">
+        {{ trade.n }}
+      </ion-item>
+      <ion-item *ngIf="nearbyTrades.length === 0">
+        <h1>No Current Trades Nearby</h1>
       </ion-item>
     </ion-list>
   </div>

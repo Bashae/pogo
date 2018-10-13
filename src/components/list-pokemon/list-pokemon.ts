@@ -11,20 +11,50 @@ export class ListPokemonComponent {
   mapLat: any;
   mapLon: any;
 
+  nearbyRaids: any[];
+  nearbyQuests: any[];
+  nearbyTrades: any[];
+
   constructor(
     public geo: GeoProvider,
     public geolocation: Geolocation
   ) {
     this.searchType = "raids";
     let raidsCall = this.getLocation();
+    console.log('doing check');
     raidsCall.then(resp => {
-      console.log('run a');
-      let raids = this.geo.getNearbyRaids(resp.coords.latitude, resp.coords.longitude);
+      let raids = this.geo.getNearbyRaids(resp.coords.latitude, resp.coords.longitude)
       raids.subscribe(res => {
-        console.log('sub');
+        console.log('raids sub');
         console.log(res);
+        console.log('set raids');
+        this.nearbyRaids = res;
       });
     });
+
+    raidsCall.catch(res => {
+      console.log('it fail raids');
+    })
+
+    let questsCall = this.getLocation();
+    questsCall.then(resp => {
+      let quests = this.geo.getNearbyQuests(resp.coords.latitude, resp.coords.longitude)
+      quests.subscribe(res => {
+        console.log('quests sub');
+        console.log(res);
+        this.nearbyQuests = res;
+      });
+    })
+
+    let tradesCall = this.getLocation();
+    tradesCall.then(resp => {
+      let trades = this.geo.getNearbyTrades(resp.coords.latitude, resp.coords.longitude)
+      trades.subscribe(res => {
+        console.log('trades sub');
+        console.log(res);
+        this.nearbyTrades = res;
+      });
+    })
   }
 
   getLocation() {
