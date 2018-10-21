@@ -34,7 +34,6 @@ export class HomePage {
   locations: any[];
   location: any;
   GoogleAutocomplete;
-
   userFriends: Observable<any>;
 
   constructor(
@@ -52,6 +51,10 @@ export class HomePage {
     this.locations = [];
   }
 
+  ionViewDidLoad() {
+    this.loadMap();
+  }
+
   changeSelection(ev) {
     this.selection = ev;
   }
@@ -61,10 +64,10 @@ export class HomePage {
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: {
-          lat: this.mapLat,
-          lng: this.mapLon
+          lat: 35.5012683,
+          lng: -80.8609436
         },
-        zoom: this.radius
+        zoom: 18
       }
     }
     
@@ -102,91 +105,6 @@ export class HomePage {
     //   .then((marker: Marker) => {
     //      marker.showInfoWindow();
     //    });
-  }
-
-  setCoordinates() {
-    this.geolocation.getCurrentPosition().then(resp => {
-      this.mapLat = resp.coords.latitude;
-      this.mapLon = resp.coords.longitude;
-      this.loadMap();
-      this.getNearbyPlayers(resp.coords.latitude, resp.coords.longitude);
-      this.trackUser();
-    });
-  }
-
-  // setRadius() {
-  //   this.geo.changeRadius(this.radius);
-  // }
-
-  trackUser() {
-    const subscription = this.geolocation.watchPosition();
-    let lastUpdate, currentUpdate;
-    lastUpdate = 0;
-    currentUpdate = 1;
-
-    setInterval(function() {
-      currentUpdate++;
-    }, 15000);
-
-    subscription.subscribe(position => {
-      this.mapLat = position.coords.latitude;
-      this.mapLon = position.coords.longitude;
-
-      if(lastUpdate !== currentUpdate) {
-        lastUpdate = currentUpdate;
-        this.geo.changePosition(position);
-      }
-    })
-  }
-
-  getNearbyPlayers(lat, lon) {
-    let players = this.geo.getNearbyPlayers(lat, lon);
-    players.subscribe(res => {
-      this.nearbyPlayers = res;
-    });
-  }
-
-  getAreaGroups(lat, lon) {
-    let groups = this.geo.getAreaGroups(lat, lon, 30);
-    
-    groups.subscribe(res => {
-      this.nearbyGroups = res;
-      this.changeDetector.detectChanges();
-    });
-  }
-
-  getAreaEvents(lat, lon) {
-    let events;
-    if(this.mapLat) {
-      events = this.geo.getAreaEvents(this.mapLat, this.mapLon, 30);
-    } else {
-      this.setCoordinates();
-      events = this.geo.getAreaEvents(this.mapLat, this.mapLon, 30);
-    }
-    
-    events.subscribe(res => {
-      this.nearbyEvents = res;
-    });
-  }
-
-  selectLocation(loc) {
-    this.location = loc;
-    this.locations = [];
-    this.getPlacesLatLong(loc.description);
-  }
-
-  getPlacesLatLong(address) {
-    var geocoder = new google.maps.Geocoder();
-    let _that = this;
-
-    geocoder.geocode({ 'address': address }, function (results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        let lat = results[0].geometry.location.lat();
-        let lon = results[0].geometry.location.lng();
-
-        _that.getAreaGroups(lat, lon);
-      }
-    });
   }
 
   getCeilDistance(num) {

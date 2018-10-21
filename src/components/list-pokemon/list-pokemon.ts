@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { GeoProvider } from '../../providers/geo/geo';
 import { Geolocation } from '@ionic-native/geolocation';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AddQuestPage } from '../../pages/add-quest/add-quest';
+import { AddRaidPage } from '../../pages/add-raid/add-raid';
+import { AddTradePage } from '../../pages/add-trade/add-trade';
 
 @Component({
   selector: 'list-pokemon',
@@ -17,13 +21,18 @@ export class ListPokemonComponent {
 
   constructor(
     public geo: GeoProvider,
-    public geolocation: Geolocation
+    public geolocation: Geolocation,
+    public navCtrl: NavController
   ) {
     this.searchType = "raids";
+    this.nearbyRaids = [];
+    this.nearbyQuests = [];
+    this.nearbyTrades = [];
+
     let raidsCall = this.getLocation();
     console.log('doing check');
     raidsCall.then(resp => {
-      let raids = this.geo.getNearbyRaids(resp.coords.latitude, resp.coords.longitude)
+      let raids = this.geo.getNearbyRaids(resp.coords.latitude, resp.coords.longitude);
       raids.subscribe(res => {
         console.log('raids sub');
         console.log(res);
@@ -31,6 +40,10 @@ export class ListPokemonComponent {
         this.nearbyRaids = res;
       });
     });
+
+    raidsCall.catch(a => {
+      console.log('cetch');
+    })
 
     raidsCall.catch(res => {
       console.log('it fail raids');
@@ -59,6 +72,18 @@ export class ListPokemonComponent {
 
   getLocation() {
     return this.geolocation.getCurrentPosition();
+  }
+
+  openAddQuestPage() {
+    this.navCtrl.push(AddQuestPage);
+  }
+
+  openAddRaidPage() {
+    this.navCtrl.push(AddRaidPage);
+  }
+
+  openAddTradePage() {
+    this.navCtrl.push(AddTradePage);
   }
 
 }

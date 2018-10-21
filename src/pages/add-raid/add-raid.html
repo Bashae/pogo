@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Add a Raid!</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-slides pager>
+    <ion-slide>
+      <div style="height: 200px;width: 100%;display:block;max-width:100%;border-bottom: 1px solid #333;" id="map" #map></div>
+      <input-search [inputType]="location"></input-search>
+      <ion-list>
+        <ion-item (click)="selectItem()">
+          A
+        </ion-item>
+        <ion-item>
+          B
+        </ion-item>
+      </ion-list>
+    </ion-slide>
+    <ion-slide>
+      <ul class="list--raid-head">
+        <li>
+          <img src="assets/imgs/raidhead.png">
+          <!-- <img src="assets/imgs/raidhead1.png"> -->
+        </li>
+        <li>
+          <img src="assets/imgs/raidhead.png">
+          <!-- <img src="assets/imgs/raidhead1.png"> -->
+        </li>
+        <li>
+          <img src="assets/imgs/raidhead.png">
+          <!-- <img src="assets/imgs/raidhead1.png"> -->
+        </li>
+        <li>
+          <img src="assets/imgs/raidhead.png">
+          <!-- <img src="assets/imgs/raidhead1.png"> -->
+        </li>
+        <li>
+          <img src="assets/imgs/raidhead.png">
+          <!-- <img src="assets/imgs/raidhead1.png"> -->
+        </li>
+      </ul>
+      <ion-list>
+        <ion-item>
+          <ion-label>Which pokemon?</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>CP Level?</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Type?</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Time?</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <button ion-button block button-block>Add Raid!</button>
+      </ion-list>
+    </ion-slide>
+    <ion-slide>
+      <h2>Slide 3</h2>
+    </ion-slide>  
+  </ion-slides>
+</ion-content>

@@ -3,12 +3,11 @@
     <h1 style="font-size:20px;">{{ selection.title }}</h1>
   </ion-item>
 
-  <grid-selection></grid-selection>
+  <grid-selection (typeChanged)="onSelectionChanged($event)"></grid-selection>
 
   <div [ngSwitch]="selection.title">
     <ion-list *ngSwitchCase='"Find Nearby Players"'>
       <div style="height: 200px;width: 100%;display:block;max-width:100%;" id="map_canvas" *ngIf="mapLat"></div>
-      <ion-list-header>Nearby Players</ion-list-header>
       <ion-item class="no-padding--left">
         <span style="color: #ddd;font-size: 14px;">Click the locator to find players near you.</span>
         <button ion-button icon-only item-end (click)="setCoordinates()" class="button--locator button--locator__faded" [class.active]="trackUserBool">
@@ -25,12 +24,13 @@
           <button ion-button clear item-end>Chat</button>
         </ion-item>
       </ion-scroll>
+      {{ lastIdiot }}
+      {{ wasteEater }}
     </ion-list>
   </div>
 
   <div [ngSwitch]="selection.title">
     <ion-list *ngSwitchCase='"Find Groups in the Area"'>
-      <ion-list-header>Nearby Groups</ion-list-header>
       <ion-item *ngIf="!location" class="no-padding--left">
         <ion-icon name="search" item-end style="color: #ddd;"></ion-icon>
         <button ion-button icon-only item-end class="button--locator button--locator__faded" (click)="getGroupsByGeo()">
@@ -67,7 +67,6 @@
 
   <div [ngSwitch]="selection.title">
     <ion-list *ngSwitchCase='"Events in the Area"'>
-      <ion-list-header>Nearby Events</ion-list-header>
       <ion-item class="no-padding--left">
         <ion-icon name="search" item-end style="color: #ddd;"></ion-icon>
         <button ion-button icon-only item-end class="button--locator button--locator__faded" (click)="getEventsByGeo()">
@@ -98,7 +97,6 @@
 
   <div [ngSwitch]="selection.title">
     <ion-list *ngSwitchCase='"Looking for Pokemon"'>
-      <ion-list-header>Pokemon Sightings</ion-list-header>
       <ion-item>
       </ion-item>
     </ion-list>

@@ -6,12 +6,22 @@ import * as geofirex from 'geofirex';
 import { switchMap } from 'rxjs/operators';
 import { UserProvider } from '../user/user';
 
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapOptions
+} from '@ionic-native/google-maps';
+import { Geolocation } from '@ionic-native/geolocation';
+
 @Injectable()
 export class GeoProvider {
   geo = geofirex.init(firebase)
   points: Observable<any>
   radius = new BehaviorSubject(10)
-  location = {latitude: "", longitude: ""}
+  location = {latitude: 0, longitude: 0}
+  currentLocation = {lat: 0, lon: 0}
+  subscription: any;
 
   nearbyFriends: any;
   nearbyEvents:  any;
@@ -19,20 +29,48 @@ export class GeoProvider {
 
   constructor ( 
     public afs: AngularFirestore,
-    public userService: UserProvider
+    public userService: UserProvider,
+    private geolocation: Geolocation,
+    private googleMaps: GoogleMaps
   ) {
     
   }
 
-  changePosition(v) {
-    this.location.latitude = v.coords.latitude;
-    this.location.longitude = v.coords.longitude;
-    let newGeoPoint = this.getGeoPoint(this.location.latitude, this.location.longitude);
-    // this.userService.updateUserLocation(newGeoPoint);
-  }
-
   getGeoPoint(lat, lon) {
     return this.geo.point(lat, lon);
+  }
+
+  getLocation() {
+    return this.currentLocation;
+  }
+
+  setLocation(loc) {
+    if(!loc) {
+      this.geolocation.getCurrentPosition().then(resp => {
+        this.currentLocation.lat = resp.coords.latitude;
+        this.currentLocation.lon = resp.coords.longitude;
+      });
+    }
+    let newGeoPoint = this.getGeoPoint(this.currentLocation.lat, this.currentLocation.lon);
+    this.userService.updateUserLocation(newGeoPoint);
+  }
+
+  trackLocation() {
+    this.subscription = this.geolocation.watchPosition();
+    let lastUpdate, currentUpdate;
+    lastUpdate = 0;
+    currentUpdate = 1;
+
+    setInterval(function() {
+      currentUpdate++;
+    }, 15000);
+
+    this.subscription.subscribe(position => {
+      if(lastUpdate !== currentUpdate) {
+        lastUpdate = currentUpdate;
+        this.setLocation(true);
+      }
+    })
   }
 
   getNearbyPlayers(lat, lon) {

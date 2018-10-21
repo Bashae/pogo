@@ -23,8 +23,12 @@ import { GoogleMaps } from "@ionic-native/google-maps";
 import { GroupPage } from '../pages/group/group';
 import { ComponentsModule } from '../components/components.module';
 import { GeoPage } from '../pages/geo/geo';
+
 import { AddEventPage } from '../pages/add-event/add-event';
 import { AddGroupPage } from '../pages/add-group/add-group';
+import { AddRaidPage } from '../pages/add-raid/add-raid';
+import { AddTradePage } from '../pages/add-trade/add-trade';
+import { AddQuestPage } from '../pages/add-quest/add-quest';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyC_f0a9UhqZniUM87FtEKp32FbDJXI7wj8",
@@ -44,7 +48,10 @@ export const firebaseConfig = {
     GeoPage,
     GroupPage,
     AddEventPage,
-    AddGroupPage
+    AddGroupPage,
+    AddRaidPage,
+    AddQuestPage,
+    AddTradePage
   ],
   imports: [
     BrowserModule,
@@ -61,12 +68,16 @@ export const firebaseConfig = {
     GeoPage,
     GroupPage,
     AddEventPage,
-    AddGroupPage
+    AddGroupPage,
+    AddRaidPage,
+    AddQuestPage,
+    AddTradePage
   ],
   providers: [
     AngularFireAuth,
     AngularFireModule,
     AngularFirestore,
+    GoogleMaps,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
@@ -74,9 +85,7 @@ export const firebaseConfig = {
     AuthProvider,
     GroupProvider,
     Geolocation,
-    GeoProvider,
-    GoogleMaps,
-    GoogleMaps
+    GeoProvider
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

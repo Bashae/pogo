@@ -39,6 +39,8 @@ export class GeoPage {
   GoogleAutocomplete;
   trackUserBool: boolean = false;
   subscription;
+  lastIdiot: string = "";
+  wasteEater: string = "";
 
   constructor(
     public navCtrl: NavController,
@@ -48,9 +50,15 @@ export class GeoPage {
     private googleMaps: GoogleMaps,
     private changeDetector: ChangeDetectorRef
   ) {
-    this.selection.title = "Find Nearby Players";
+    this.selection.title = "Looking for Pokemon";
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.locations = [];
+    this.lastIdiot = "Alpha";
+    this.wasteEater = "Beta";
+  }
+
+  onSelectionChanged(type) {
+    this.selection.title = type;
   }
 
   loadMap() {
@@ -58,10 +66,10 @@ export class GeoPage {
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: {
-          lat: this.mapLat,
-          lng: this.mapLon
+          lat: 35.5012683,
+          lng: -80.8609436
         },
-        zoom: this.radius
+        zoom: 18
       }
     }
     
@@ -70,11 +78,16 @@ export class GeoPage {
     // listen to MAP_READY event
     // You must wait for this event to fire before adding something to the map or modifying it in anyway
     map.one(GoogleMapsEvent.MAP_READY).then(
-      () => {
+      (res) => {
+        this.lastIdiot = "Then";
+        this.wasteEater = res;
         console.log('Map is ready!');
         // Now you can add elements to the map like the marker
       }
-    )
+    ).catch((err) => {
+      this.lastIdiot = "Catch";
+      this.wasteEater = err;
+    })
    
     // create LatLng object
     // let ionic: LatLng = new LatLng(43.0741904,-89.3809802);
@@ -101,22 +114,6 @@ export class GeoPage {
     //    });
   }
 
-  setCoordinates() {
-    if(!this.trackUserBool) {
-      this.geolocation.getCurrentPosition().then(resp => {
-        this.mapLat = resp.coords.latitude;
-        this.mapLon = resp.coords.longitude;
-        this.loadMap();
-        this.getNearbyPlayers(resp.coords.latitude, resp.coords.longitude);
-        this.trackUser();
-      });
-    } else {
-      this.subscription.unsubscribe();
-    }
-
-    this.trackUserBool = !this.trackUserBool;
-  }
-
   getGroupsByGeo() {
     console.log('get groups by geo: a');
 
@@ -137,28 +134,6 @@ export class GeoPage {
       this.mapLon = resp.coords.longitude;
       this.getAreaEvents(this.mapLat, this.mapLon);
     });
-  }
-
-  trackUser() {
-    let lastUpdate, currentUpdate;
-    lastUpdate = 0;
-    currentUpdate = 1;
-
-    setInterval(function() {
-      currentUpdate++;
-    }, 15000);
-
-    this.subscription = this.geolocation.watchPosition().subscribe(position => {
-      this.subscription.subscribe(position => {
-        this.mapLat = position.coords.latitude;
-        this.mapLon = position.coords.longitude;
-  
-        if(lastUpdate !== currentUpdate) {
-          lastUpdate = currentUpdate;
-          this.geo.changePosition(position);
-        }
-      })
-    })
   }
 
   getNearbyPlayers(lat, lon) {
@@ -182,7 +157,6 @@ export class GeoPage {
     if(this.mapLat) {
       events = this.geo.getAreaEvents(this.mapLat, this.mapLon, 30);
     } else {
-      this.setCoordinates();
       events = this.geo.getAreaEvents(this.mapLat, this.mapLon, 30);
     }
     
