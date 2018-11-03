@@ -14,6 +14,7 @@ import {
   Marker,
   Environment
 } from '@ionic-native/google-maps';
+import { GeoProvider } from '../../providers/geo/geo';
 
 @IonicPage()
 @Component({
@@ -26,19 +27,59 @@ export class AddRaidPage {
   private map: GoogleMap;
   private location: LatLng;
   returnResponse: string = "";
+  gyms: any;
+  additionType: string;
   // map: GoogleMap;
 
+  currentSlide: number;
+  currentTitle: string;
+
   constructor(
-    private geolocation: Geolocation,
-    private googleMaps: GoogleMaps
-  ) {}
+    private geo: GeoProvider
+  ) {
+    this.currentTitle = "Tell us what you see!";
+    this.currentSlide = 1;
+  }
 
   ionViewDidLoad() {
     this.loadMap();
+    this.getGyms();
+  }
+
+  nextSlide() {
+    this.currentSlide++;
+    this.slides.slideNext();
+  }
+
+  previousSlide() {
+    this.currentSlide--;
+    this.slides.slidePrev();
+  }
+
+  closeSlides() {
+    
+  }
+
+  selectType(type) {
+    this.additionType = type;
   }
 
   selectItem() {
-    this.slides.slideNext();
+    this.nextSlide();
+  }
+
+  selectLocation(loc) {
+    loc.pos.geohash = this.geo.getGeoPoint(loc.pos.geopoint[0], loc.pos.geopoint[1]).hash;
+    this.nextSlide();
+  }
+
+  getGyms() {
+    let gyms = this.geo.getNearbyGyms();
+    gyms.subscribe(res => {
+      console.log('gyms sub');
+      console.log(res);
+      this.gyms = res;
+    });
   }
 
   loadMap() {

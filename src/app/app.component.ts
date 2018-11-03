@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { AuthProvider } from '../providers/auth/auth';
 import { GeoPage } from '../pages/geo/geo';
 import { LoginPage } from '../pages/login/login';
+import { GeoProvider } from '../providers/geo/geo';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,13 +20,15 @@ export class MyApp {
     platform: Platform, 
     statusBar: StatusBar, 
     splashScreen: SplashScreen,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private geo: GeoProvider
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      this.geo.setLocation(false);
     });
   }
 

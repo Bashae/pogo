@@ -51,8 +51,8 @@ export class GeoProvider {
         this.currentLocation.lon = resp.coords.longitude;
       });
     }
-    let newGeoPoint = this.getGeoPoint(this.currentLocation.lat, this.currentLocation.lon);
-    this.userService.updateUserLocation(newGeoPoint);
+    // let newGeoPoint = this.getGeoPoint(this.currentLocation.lat, this.currentLocation.lon);
+    // this.userService.updateUserLocation(newGeoPoint);
   }
 
   trackLocation() {
@@ -82,6 +82,19 @@ export class GeoProvider {
         return this.geo.collection('users').within(center, r, field);
       })
     )
+  }
+
+  getNearbyGyms() {
+    this.setLocation(false);
+    let loc = this.getLocation();
+    const field = 'pos';
+    let center = this.getGeoPoint(loc.lat, loc.lon);
+    console.log('getting gyms');
+    console.log(loc);
+
+    return this.geo.collection('gy', ref =>
+      ref.limit(15))
+        .within(center, 10, field);
   }
 
   getNearbyRaids(lat, lon) {

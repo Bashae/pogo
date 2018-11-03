@@ -17,4 +17,12 @@ page-add-raid {
             float: left;
         }
     }
+    .custom-button--back {
+        background: transparent;
+        box-shadow: none;
+        color: #333;
+    }
+    .back-button {
+        display: none !important;
+    }
 }

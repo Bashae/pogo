@@ -1,20 +1,51 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Add a Raid!</ion-title>
+    <ion-grid>
+      <ion-row>
+        <button *ngIf="currentSlide == 1" (click)="closeSlides()" ion-button icon-only class="custom-button--back"><ion-icon name="close"></ion-icon></button>
+        <button *ngIf="currentSlide > 1" (click)="previousSlide()" ion-button icon-only class="custom-button--back"><ion-icon name="arrow-back"></ion-icon></button>
+        <ion-title>What are we adding?</ion-title>
+      </ion-row>
+    </ion-grid>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-slides pager>
     <ion-slide>
-      <div style="height: 200px;width: 100%;display:block;max-width:100%;border-bottom: 1px solid #333;" id="map" #map></div>
-      <input-search [inputType]="location"></input-search>
-      <ion-list>
-        <ion-item (click)="selectItem()">
-          A
+      <ion-list radio-group>
+      
+        <ion-item (focus)="selectType('gym')">
+          <ion-label>Gym</ion-label>
+          <ion-radio value="gym"></ion-radio>
         </ion-item>
-        <ion-item>
-          B
+
+        <ion-item (click)="selectType('raid')">
+          <ion-label>Raid</ion-label>
+          <ion-radio value="raid"></ion-radio>
+        </ion-item>
+      
+        <ion-item (click)="selectType('quest')">
+          <ion-label>Quest</ion-label>
+          <ion-radio value="quest"></ion-radio>
+        </ion-item>
+      
+        <ion-item (click)="selectType('trade')">
+          <ion-label>Trade</ion-label>
+          <ion-radio value="trade"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <button ion-button (click)="nextSlide()">
+        Select
+      </button>
+    </ion-slide>
+    <ion-slide>
+      <div style="height: 200px;width: 100%;display:block;max-width:100%;border-bottom: 1px solid #333;" id="map" #map></div>
+      <input-geo-search (receivedLocation)="selectLocation($event)"></input-geo-search>
+      <ion-list>
+        <ion-item (click)="selectItem()" *ngFor="let gym of gyms">
+          <h1>{{ gym.n }}</h1>
+          <h2>{{gym.ad}}</h2>
         </ion-item>
       </ion-list>
     </ion-slide>
