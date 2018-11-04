@@ -5,6 +5,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AddQuestPage } from '../../pages/add-quest/add-quest';
 import { AddRaidPage } from '../../pages/add-raid/add-raid';
 import { AddTradePage } from '../../pages/add-trade/add-trade';
+import { AddModalPage } from '../../pages/add-modal/add-modal';
 
 @Component({
   selector: 'list-pokemon',
@@ -78,7 +79,7 @@ export class ListPokemonComponent {
     this.navCtrl.push(AddQuestPage);
   }
 
-  openAddRaidPage() {
+  openAddModalPage() {
     this.navCtrl.push(AddRaidPage);
   }
 

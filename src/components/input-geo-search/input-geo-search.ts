@@ -35,6 +35,9 @@ export class InputGeoSearchComponent {
   }
 
   selectLocation(loc) {
+    this.autocomplete = "";
+    this.locations = [];
+    
     let loc_obj = {
       d: loc['description'],
       id: loc['place_id'],

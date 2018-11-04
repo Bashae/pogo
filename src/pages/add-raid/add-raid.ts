@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Slides } from 'ionic-angular';
 
@@ -27,18 +27,28 @@ export class AddRaidPage {
   private map: GoogleMap;
   private location: LatLng;
   returnResponse: string = "";
-  gyms: any;
   additionType: string;
   // map: GoogleMap;
-
   currentSlide: number;
   currentTitle: string;
+  gyms: any;
+
+  // New Gym
+  newGymLocation: any;
+
+  // New Raid
   raidNumber: number = 0;
+  isHatched: boolean;
+
+  // New Quest
+
+  // New Trade
 
   constructor(
-    private geo: GeoProvider
+    private geo: GeoProvider,
+    public viewCtrl: ViewController
   ) {
-    this.currentTitle = "Tell us what you see!";
+    this.currentTitle = "What are we adding?";
     this.currentSlide = 1;
   }
 
@@ -48,6 +58,8 @@ export class AddRaidPage {
   }
 
   nextSlide() {
+    console.log('type');
+    console.log(this.additionType);
     this.currentSlide++;
     this.slides.slideNext();
   }
@@ -58,10 +70,12 @@ export class AddRaidPage {
   }
 
   closeSlides() {
-    
+    this.viewCtrl.dismiss();
   }
 
   selectType(type) {
+    console.log('type is');
+    console.log(type);
     this.additionType = type;
   }
 
@@ -69,9 +83,24 @@ export class AddRaidPage {
     this.nextSlide();
   }
 
+  setHatch(bool) {
+    this.isHatched = bool;
+    if(!bool) {
+      return;
+    }
+    this.nextSlide();
+  }
+
   selectLocation(loc) {
+    this.newGymLocation = loc;
     loc.pos.geohash = this.geo.getGeoPoint(loc.pos.geopoint[0], loc.pos.geopoint[1]).hash;
     this.nextSlide();
+  }
+
+  addNewLocation() {
+    console.log('ADD GYM - TECHNICALLY');
+    console.log(this.newGymLocation);
+    // Send 'new gym location' to database.
   }
 
   getGyms() {

@@ -29,6 +29,12 @@ import { AddGroupPage } from '../pages/add-group/add-group';
 import { AddRaidPage } from '../pages/add-raid/add-raid';
 import { AddTradePage } from '../pages/add-trade/add-trade';
 import { AddQuestPage } from '../pages/add-quest/add-quest';
+import { AddModalPage } from '../pages/add-modal/add-modal';
+import { AddGymPage } from '../pages/add-gym/add-gym';
+import { GymProvider } from '../providers/gym/gym';
+import { RaidProvider } from '../providers/raid/raid';
+import { QuestProvider } from '../providers/quest/quest';
+import { TradeProvider } from '../providers/trade/trade';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyC_f0a9UhqZniUM87FtEKp32FbDJXI7wj8",
@@ -51,7 +57,9 @@ export const firebaseConfig = {
     AddGroupPage,
     AddRaidPage,
     AddQuestPage,
-    AddTradePage
+    AddTradePage,
+    AddModalPage,
+    AddGymPage
   ],
   imports: [
     BrowserModule,
@@ -71,7 +79,9 @@ export const firebaseConfig = {
     AddGroupPage,
     AddRaidPage,
     AddQuestPage,
-    AddTradePage
+    AddTradePage,
+    AddModalPage,
+    AddGymPage
   ],
   providers: [
     AngularFireAuth,
@@ -85,7 +95,11 @@ export const firebaseConfig = {
     AuthProvider,
     GroupProvider,
     Geolocation,
-    GeoProvider
+    GeoProvider,
+    GymProvider,
+    RaidProvider,
+    QuestProvider,
+    TradeProvider
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
