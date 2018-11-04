@@ -30,8 +30,6 @@ export class InputGeoSearchComponent {
       if(res !== null) {
         this.locations = res;
         this.changeDetector.detectChanges();
-        console.log('what is locations');
-        console.log(this.locations);
       }
     });
   }

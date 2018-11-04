@@ -51,46 +51,45 @@
     </ion-slide>
     <ion-slide>
       <ul class="list--raid-head">
-        <li>
-          <img src="assets/imgs/raidhead.png">
+        <li (click)="raidNumber = 1">
+          <img *ngIf="raidNumber < 1" src="assets/imgs/raidhead.png">
+          <img *ngIf="raidNumber >= 1" src="assets/imgs/raidhead_selected_mystic.png">
           <!-- <img src="assets/imgs/raidhead1.png"> -->
         </li>
-        <li>
-          <img src="assets/imgs/raidhead.png">
+        <li (click)="raidNumber = 2">
+          <img *ngIf="raidNumber < 2" src="assets/imgs/raidhead.png">
+          <img *ngIf="raidNumber >= 2" src="assets/imgs/raidhead_selected_mystic.png">
           <!-- <img src="assets/imgs/raidhead1.png"> -->
         </li>
-        <li>
-          <img src="assets/imgs/raidhead.png">
+        <li (click)="raidNumber = 3">
+            <img *ngIf="raidNumber < 3" src="assets/imgs/raidhead.png">
+            <img *ngIf="raidNumber >= 3" src="assets/imgs/raidhead_selected_mystic.png">
           <!-- <img src="assets/imgs/raidhead1.png"> -->
         </li>
-        <li>
-          <img src="assets/imgs/raidhead.png">
+        <li (click)="raidNumber = 4">
+            <img *ngIf="raidNumber < 4" src="assets/imgs/raidhead.png">
+            <img *ngIf="raidNumber >= 4" src="assets/imgs/raidhead_selected_mystic.png">
           <!-- <img src="assets/imgs/raidhead1.png"> -->
         </li>
-        <li>
-          <img src="assets/imgs/raidhead.png">
+        <li (click)="raidNumber = 5">
+            <img *ngIf="raidNumber < 5" src="assets/imgs/raidhead.png">
+            <img *ngIf="raidNumber >= 5" src="assets/imgs/raidhead_selected_mystic.png">
           <!-- <img src="assets/imgs/raidhead1.png"> -->
         </li>
       </ul>
-      <ion-list>
-        <ion-item>
-          <ion-label>Which pokemon?</ion-label>
-          <ion-input></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>CP Level?</ion-label>
-          <ion-input></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Type?</ion-label>
-          <ion-input></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Time?</ion-label>
-          <ion-input></ion-input>
-        </ion-item>
-        <button ion-button block button-block>Add Raid!</button>
-      </ion-list>
+      <ion-grid>
+        <ion-grid-header>
+          Has it Hatched yet?
+        </ion-grid-header>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button block button-block>Yes</button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button block button-block>No</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-slide>
     <ion-slide>
       <h2>Slide 3</h2>

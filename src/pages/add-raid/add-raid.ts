@@ -33,6 +33,7 @@ export class AddRaidPage {
 
   currentSlide: number;
   currentTitle: string;
+  raidNumber: number = 0;
 
   constructor(
     private geo: GeoProvider
