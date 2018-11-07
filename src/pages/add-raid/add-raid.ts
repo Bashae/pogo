@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import * as firebase from 'firebase/app';
 import { Slides } from 'ionic-angular';
 
 import {
@@ -15,6 +16,7 @@ import {
   Environment
 } from '@ionic-native/google-maps';
 import { GeoProvider } from '../../providers/geo/geo';
+import { GymProvider } from '../../providers/gym/gym';
 
 @IonicPage()
 @Component({
@@ -39,14 +41,25 @@ export class AddRaidPage {
   // New Raid
   raidNumber: number = 0;
   isHatched: boolean;
+  selectedGym: any;
+  hatchInput: any;
+  raidPokemon: any;
+  raidPokemonCP: any;
+  attackOne: any;
+  attackTwo: any;
+  raidTimeRemaining: any;
 
   // New Quest
+  questReward: any;
+  questText: any;
+  questType: any;
 
   // New Trade
 
   constructor(
     private geo: GeoProvider,
-    public viewCtrl: ViewController
+    public viewCtrl: ViewController,
+    public gymService: GymProvider
   ) {
     this.currentTitle = "What are we adding?";
     this.currentSlide = 1;
@@ -79,7 +92,10 @@ export class AddRaidPage {
     this.additionType = type;
   }
 
-  selectItem() {
+  selectItem(gym) {
+    console.log('gym');
+    console.log(gym);
+    this.selectedGym = gym;
     this.nextSlide();
   }
 
@@ -94,13 +110,59 @@ export class AddRaidPage {
   selectLocation(loc) {
     this.newGymLocation = loc;
     loc.pos.geohash = this.geo.getGeoPoint(loc.pos.geopoint[0], loc.pos.geopoint[1]).hash;
+    loc.pos.geopoint = new firebase.firestore.GeoPoint(loc.pos.geopoint[0], loc.pos.geopoint[1])
     this.nextSlide();
   }
 
   addNewLocation() {
-    console.log('ADD GYM - TECHNICALLY');
-    console.log(this.newGymLocation);
     // Send 'new gym location' to database.
+    this.gymService.addGym(this.newGymLocation);
+  }
+
+  addNewQuest() {
+    // Find by location id (lid)
+    let gym = this.selectedGym.lid;
+    let data = this.selectedGym;
+
+    data['q'] = {
+      'r': this.questReward,
+      'te': this.questText,
+      'ty': this.questType
+    }
+
+    this.gymService.updateGym(gym, data);
+  }
+
+  addRaidEgg() {
+    // Find by location id (lid)
+    let gym = this.selectedGym.lid;
+    let data = this.selectedGym;
+
+    data['r'] = {
+      'h': this.isHatched,
+      'ra': this.raidNumber,
+      'tth': this.hatchInput
+    }
+
+    this.gymService.updateGym(gym, data);
+  }
+
+  addNewRaid() {
+    // Find by location id (lid)
+    let gym = this.selectedGym.lid;
+    let data = this.selectedGym;
+    data['r'] = {
+      'p': this.raidPokemon,
+      'tr': this.raidTimeRemaining,
+      'cp': this.raidPokemonCP,
+      'atk1': this.attackOne,
+      'atk2': this.attackTwo,
+      'h': this.isHatched,
+      'ra': this.raidNumber,
+      'tth': 0
+    }
+
+    this.gymService.updateGym(gym, data)
   }
 
   getGyms() {

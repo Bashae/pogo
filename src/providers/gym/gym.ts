@@ -1,17 +1,35 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AngularFirestoreDocument, AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
-/*
-  Generated class for the GymProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class GymProvider {
+  gymCollection:   AngularFirestoreCollection;
 
-  constructor(public http: HttpClient) {
-    console.log('Hello GymProvider Provider');
+  constructor(
+    public afs: AngularFirestore
+  ) {
+    this.gymCollection = this.afs.collection('gy');
+  }
+
+  addGym(gym) {
+    let _that = this;
+    let addGym = this.gymCollection.add(gym);
+    addGym.then(function(data) {
+      gym['lid'] = data.id;
+      _that.updateGym(data.id, gym)
+    })
+    .catch(function(err) {
+      console.log('err: ' + err);
+    })
+  }
+
+  updateGym(gym, data) {
+    this.gymCollection.doc(gym).update(data);
+  }
+
+  getGym(gym) {
+
   }
 
 }

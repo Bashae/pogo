@@ -22,6 +22,7 @@ export class GeoProvider {
   location = {latitude: 0, longitude: 0}
   currentLocation = {lat: 0, lon: 0}
   subscription: any;
+  isLocatorActive: boolean = false;
 
   nearbyFriends: any;
   nearbyEvents:  any;
@@ -34,6 +35,14 @@ export class GeoProvider {
     private googleMaps: GoogleMaps
   ) {
     
+  }
+
+  locatorOn() {
+    this.isLocatorActive = true;
+  }
+
+  locatorOff() {
+    this.isLocatorActive = false;
   }
 
   getGeoPoint(lat, lon) {

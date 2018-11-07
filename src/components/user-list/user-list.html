@@ -1,17 +1,52 @@
 <ion-list>
-  <ion-item class="no-padding--left">
-    <ion-icon name="search" item-end style="color: #ddd;"></ion-icon>
-    <ion-input placeholder="Search through friends."></ion-input>
-  </ion-item>
-  <ion-scroll scrollY="true" style="height: 200px;">
-    <ion-item *ngFor="let player of friends" class="playerItem">
-      <ion-thumbnail item-start>
-        <img src="https://scontent-atl3-1.xx.fbcdn.net/v/t1.0-9/42157390_2348884881794043_475666240757563392_o.jpg?_nc_cat=108&oh=a78c4254a319e3358614c5d501a52731&oe=5C6043C4">
-      </ion-thumbnail>
-      <h2>{{ player.fn }}</h2>
-      <p>{{ player.fn }}</p>
-      <button ion-button clear item-end><ion-icon name="contact"></ion-icon></button>
-      <button ion-button clear item-end><ion-icon name="text"></ion-icon></button>
-    </ion-item>
-  </ion-scroll>
+  <ion-segment [(ngModel)]="userListType">
+    <ion-segment-button value="geo">
+      Nearby Players
+    </ion-segment-button>
+    <ion-segment-button value="default">
+      Favorites
+    </ion-segment-button>
+  </ion-segment>
+  
+  <div [ngSwitch]="userListType">
+    <ion-list *ngSwitchCase="'geo'">
+      <div style="height: 200px;width: 100%;display:block;max-width:100%;" id="map_canvas" *ngIf="coords"></div>
+      <ion-item class="no-padding--left">
+        <span style="color: #ddd;font-size: 14px;">Click the locator to find players near you.</span>
+        <button ion-button icon-only item-end (click)="clickGetPlayers()" class="button--locator button--locator__faded" [class.active]="isLocatorActive">
+          <ion-icon name="locate"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-scroll scrollY="true" style="height: 200px;">
+        <ion-item *ngFor="let player of nearbyPlayers">
+          <!-- <ion-thumbnail item-start>
+            <img src="img/thumbnail-totoro.png">
+          </ion-thumbnail> -->
+          <h2>{{ player.un }}</h2>
+          <p>Within {{ getCeilDistance(player.queryMetadata.distance) }} Mi.</p>
+          <button ion-button clear item-end>Chat</button>
+        </ion-item>
+      </ion-scroll>
+      {{ lastIdiot }}
+      {{ wasteEater }}
+    </ion-list>
+
+    <div *ngSwitchCase="'default'">
+      <ion-item class="no-padding--left">
+        <ion-icon name="search" item-end style="color: #ddd;"></ion-icon>
+        <ion-input placeholder="Search through friends."></ion-input>
+      </ion-item>
+      <ion-scroll scrollY="true" style="height: 200px;">
+        <ion-item *ngFor="let player of friends" class="playerItem">
+          <ion-thumbnail item-start>
+            <img src="https://scontent-atl3-1.xx.fbcdn.net/v/t1.0-9/42157390_2348884881794043_475666240757563392_o.jpg?_nc_cat=108&oh=a78c4254a319e3358614c5d501a52731&oe=5C6043C4">
+          </ion-thumbnail>
+          <h2>{{ player.fn }}</h2>
+          <p>{{ player.fn }}</p>
+          <button ion-button clear item-end><ion-icon name="contact"></ion-icon></button>
+          <button ion-button clear item-end><ion-icon name="text"></ion-icon></button>
+        </ion-item>
+      </ion-scroll>
+    </div>
+  </div>
 </ion-list>

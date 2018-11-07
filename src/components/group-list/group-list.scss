@@ -1,3 +1,12 @@
 group-list {
+    .group--item {
+        padding-left: 0;
+    }
+    .item-md ion-thumbnail[item-start] {
+        margin: 0 10px 0 0;
+    }
 
+    ion-thumbnail.group--image {
+        height: 90px;
+    }
 }

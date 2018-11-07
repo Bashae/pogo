@@ -52,7 +52,7 @@
     <ion-slide *ngIf="additionType == 'raid' || additionType == 'quest'">
       <div style="height: 200px;width: 100%;display:block;max-width:100%;border-bottom: 1px solid #333;" id="map" #map></div>
       <ion-list>
-        <ion-item (click)="selectItem()" *ngFor="let gym of gyms">
+        <ion-item (click)="selectItem(gym)" *ngFor="let gym of gyms">
           <h1>{{ gym.n }}</h1>
           <h2>{{ gym.ad }}</h2>
         </ion-item>
@@ -98,14 +98,22 @@
             <button (click)="setHatch(false)" ion-button block button-block>No</button>
           </ion-col>
         </ion-row>
+        <ion-row *ngIf="isHatched == false">
+          <ion-col col-12>
+            <ion-item>
+              <ion-label stacked>Time Until Hatch</ion-label>
+              <ion-input type="text" [(ngModel)]="hatchInput"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
       </ion-grid>
-      <ion-list *ngIf="isHatched == false">
+      <!-- <ion-list *ngIf="isHatched == false">
         <ion-item>
           <ion-label stacked>Time Until Hatch</ion-label>
           <ion-input type="text"></ion-input>
         </ion-item>
-      </ion-list>
-      <button ion-button *ngIf="isHatched == false">Add Raid</button>
+      </ion-list> -->
+      <button ion-button *ngIf="isHatched == false" [disabled]="!hatchInput" (click)="addRaidEgg()">Add Raid</button>
     </ion-slide>
     <ion-slide *ngIf="additionType == 'raid'">
       <ion-list>
@@ -114,26 +122,26 @@
         </ion-list-header>
         <ion-item>
           <ion-label stacked>Pokemon</ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-input type="text" [(ngModel)]="raidPokemon"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label stacked>CP</ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-input type="text" [(ngModel)]="raidPokemonCP"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label stacked>Time Remaining</ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-input type="text" [(ngModel)]="raidTimeRemaining"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label stacked>Attack 1</ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-input type="text" [(ngModel)]="attackOne"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label stacked>Attack 2</ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-input type="text" [(ngModel)]="attackTwo"></ion-input>
         </ion-item>
       </ion-list>
-      <button ion-button>Add Raid</button>        
+      <button ion-button (click)="addNewRaid()">Add Raid</button>        
     </ion-slide>
     <ion-slide *ngIf="additionType == 'quest'">
       <ion-list>

@@ -32,6 +32,10 @@ $instinct: $instinctPrimaryColor;
     position: relative;
 }
 
+.header-md::after {
+    height: 0;
+}
+
 .no-padding--left {
     padding-left: 0;
 
@@ -74,7 +78,7 @@ $instinct: $instinctPrimaryColor;
 }
 
 .ion-page {
-    margin-top: 35px;
+    margin-top: 40px;
 }
 
 ion-fab[bottom] {

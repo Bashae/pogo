@@ -1,8 +1,4 @@
 <ion-content>
-  <ion-item class="header-item" style="text-align: center;">
-    <h1 style="font-size:20px;">{{ selection }}</h1>
-  </ion-item>
-
   <grid-selection (typeChanged)="changeSelection($event)"></grid-selection>
 
   <div [ngSwitch]="selection">

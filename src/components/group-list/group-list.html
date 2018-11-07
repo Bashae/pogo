@@ -1,14 +1,56 @@
 <ion-list>
-  <input-search 
-    [inputType]='"group"'
-    [items]="groups"></input-search>
+  <ion-segment [(ngModel)]="groupListType">
+    <ion-segment-button value="geo">
+      Nearby Groups
+    </ion-segment-button>
+    <ion-segment-button value="default">
+      Favorites
+    </ion-segment-button>
+  </ion-segment>
 
-  <ion-item *ngFor="let group of groups" (click)="goToGroupPage(group)" class="group--item">
-    <ion-thumbnail item-start class="group--image">
-      <img src="https://scontent-atl3-1.xx.fbcdn.net/v/t31.0-8/26841261_171808613430470_6840328542440818659_o.jpg?_nc_cat=111&oh=bbc608dd878c064b9745020d577da001&oe=5C5B4DCF" alt="">
-    </ion-thumbnail>
-    <h2>{{ group.n }} Pokemon Group</h2>
-    <p>250 members</p>
-    <a href="#" style="font-size: 12px;text-decoration: none;">Click to visit their page</a>
-  </ion-item>
+  <div [ngSwitch]="groupListType">
+    <ion-list *ngSwitchCase="'geo'">
+      <div style="height: 200px;width: 100%;display:block;max-width:100%;" id="map_canvas" *ngIf="coords"></div>
+      <ion-item *ngIf="!location" class="no-padding--left">
+        <ion-icon name="search" item-end style="color: #ddd;"></ion-icon>
+        <button ion-button icon-only item-end class="button--locator button--locator__faded" [class.active]="isLocatorActive" (click)="getGroupsByGeo()">
+          <ion-icon name="locate"></ion-icon>
+        </button>
+        <ion-input placeholder="Enter a City, or click the locator!" [(ngModel)]="autocomplete" (keyup)="getAutocompleteResults()"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="locations.length > 0">
+        <ion-list>
+          <ion-item *ngFor="let loc of locations" (click)="selectLocation(loc)">
+            <h2>{{ loc.description }}</h2>
+          </ion-item>
+        </ion-list>
+      </ion-item>
+      <ion-item *ngIf="location" class="no-padding--left">
+        <ion-icon name="close" (click)="location = ''" style="float:right;"></ion-icon> {{ location.description }}
+      </ion-item>
+      <ion-item *ngFor="let group of nearbyGroups" (click)="goToGroupPage(group)" class="group--item">
+        <ion-thumbnail item-start class="group--image">
+          <img src="https://scontent-atl3-1.xx.fbcdn.net/v/t31.0-8/26841261_171808613430470_6840328542440818659_o.jpg?_nc_cat=111&oh=bbc608dd878c064b9745020d577da001&oe=5C5B4DCF" alt="">
+        </ion-thumbnail>
+        <h2>{{ group.n }} Pokemon Group</h2>
+        <p>250 members</p>
+        <a href="#" style="font-size: 12px;text-decoration: none;">Click to visit their page</a>
+      </ion-item>
+    </ion-list>
+
+    <div *ngSwitchCase="'default'">
+      <input-search 
+        [inputType]='"group"'
+        [items]="groups"></input-search>
+    
+      <ion-item *ngFor="let group of groups" (click)="goToGroupPage(group)" class="group--item">
+        <ion-thumbnail item-start class="group--image">
+          <img src="https://scontent-atl3-1.xx.fbcdn.net/v/t31.0-8/26841261_171808613430470_6840328542440818659_o.jpg?_nc_cat=111&oh=bbc608dd878c064b9745020d577da001&oe=5C5B4DCF" alt="">
+        </ion-thumbnail>
+        <h2>{{ group.n }} Pokemon Group</h2>
+        <p>250 members</p>
+        <a href="#" style="font-size: 12px;text-decoration: none;">Click to visit their page</a>
+      </ion-item>
+    </div>
+  </div>
 </ion-list>

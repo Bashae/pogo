@@ -11,6 +11,7 @@ import { InputSearchComponent } from './input-search/input-search';
 import { OverlayNavigationComponent } from './overlay-navigation/overlay-navigation';
 import { GridSelectionComponent } from './grid-selection/grid-selection';
 import { ListPokemonComponent } from './list-pokemon/list-pokemon';
+import { MapLocationComponent } from './map-location/map-location';
 
 @NgModule({
 	declarations: [HeaderComponent,
@@ -22,7 +23,8 @@ import { ListPokemonComponent } from './list-pokemon/list-pokemon';
     InputSearchComponent,
     OverlayNavigationComponent,
     GridSelectionComponent,
-    ListPokemonComponent],
+    ListPokemonComponent,
+    MapLocationComponent],
 	imports: [
 		CommonModule,
 		IonicModule
@@ -36,7 +38,8 @@ import { ListPokemonComponent } from './list-pokemon/list-pokemon';
     InputSearchComponent,
     OverlayNavigationComponent,
     GridSelectionComponent,
-    ListPokemonComponent],
+    ListPokemonComponent,
+    MapLocationComponent],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ComponentsModule {}

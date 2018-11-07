@@ -27,11 +27,13 @@
   
     <ion-list *ngSwitchCase="'quests'">
       <ion-item *ngFor="let quest of nearbyQuests">
+        <map-location [lat]="quest.pos.geopoint._lat" [lon]="quest.pos.geopoint._long"></map-location>
         {{ quest.n }}
       </ion-item>
       <ion-item *ngIf="nearbyQuests === 0">
         <h1>No Current Quests Nearby</h1>
       </ion-item>
+
       <ion-fab right bottom>
         <button ion-fab color="primary" mini (click)="openAddQuestPage()"><ion-icon name="add"></ion-icon></button>
       </ion-fab>

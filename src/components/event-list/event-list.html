@@ -1,11 +1,47 @@
 <ion-list>
-  <input-search 
-    [inputType]='"event"'
-    [items]="events"></input-search>
+  <ion-segment [(ngModel)]="eventListType">
+    <ion-segment-button value="geo">
+      Nearby Events
+    </ion-segment-button>
+    <ion-segment-button value="default">
+      Favorites
+    </ion-segment-button>
+  </ion-segment>
 
-  <ion-scroll scrollY="true" style="height: 200px;">
-    <ion-item *ngFor="let event of events">
-      <h2>{{ event.en }}</h2>
-    </ion-item>
-  </ion-scroll>
+  <div [ngSwitch]="eventListType">
+    <ion-list *ngSwitchCase="'geo'">
+      <div style="height: 200px;width: 100%;display:block;max-width:100%;" id="map_canvas" *ngIf="coords"></div>
+      <ion-item class="no-padding--left">
+        <ion-icon name="search" item-end style="color: #ddd;"></ion-icon>
+        <button ion-button icon-only item-end class="button--locator button--locator__faded" [class.active]="isLocatorActive" (click)="getEventsByGeo()">
+          <ion-icon name="locate"></ion-icon>
+        </button>
+        <ion-input placeholder="Enter a City, or click the locator!" [(ngModel)]="autocomplete" (keyup)="getAutocompleteResults()"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="locations.length > 0">
+        <ion-list>
+          <ion-item *ngFor="let loc of locations" (click)="selectLocation(loc)">
+            <h2>{{ loc.description }}</h2>
+          </ion-item>
+        </ion-list>
+      </ion-item>
+      <ion-scroll scrollY="true" style="height: 200px;">
+        <ion-item *ngFor="let event of nearbyEvents">
+          <h2>{{ event.n }}</h2>
+        </ion-item>
+      </ion-scroll>
+    </ion-list>
+
+    <div *ngSwitchCase="'default'">
+      <input-search 
+        [inputType]='"event"'
+        [items]="events"></input-search>
+    
+      <ion-scroll scrollY="true" style="height: 200px;">
+        <ion-item *ngFor="let event of events">
+          <h2>{{ event.en }}</h2>
+        </ion-item>
+      </ion-scroll>
+    </div>
+  </div>
 </ion-list>
