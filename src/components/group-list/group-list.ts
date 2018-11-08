@@ -39,12 +39,9 @@ export class GroupListComponent {
     this.groups = this.user.userGroups || [];
     this.locations = [];
 
-    if(this.geoService.getLocation()) {
+    if(!this.geoService.getLocation()) {
       this.coords = this.geoService.getLocation();
       this.isLocatorActive = this.geoService.isLocatorActive;
-
-      console.log('is locator active group');
-      console.log(this.isLocatorActive);
 
       this.getGroupsByGeo();
     }

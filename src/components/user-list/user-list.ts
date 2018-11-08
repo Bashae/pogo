@@ -23,9 +23,6 @@ export class UserListComponent {
       this.coords = this.geo.getLocation();
       this.isLocatorActive = this.geo.isLocatorActive;
 
-      console.log('is locator active users');
-      console.log(this.isLocatorActive);
-
       this.getNearbyPlayers();
     }
   }

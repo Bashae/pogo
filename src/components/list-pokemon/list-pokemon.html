@@ -27,7 +27,6 @@
   
     <ion-list *ngSwitchCase="'quests'">
       <ion-item *ngFor="let quest of nearbyQuests">
-        <map-location [lat]="quest.pos.geopoint._lat" [lon]="quest.pos.geopoint._long"></map-location>
         {{ quest.n }}
       </ion-item>
       <ion-item *ngIf="nearbyQuests === 0">

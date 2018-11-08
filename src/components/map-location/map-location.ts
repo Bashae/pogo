@@ -27,24 +27,28 @@ export class MapLocationComponent {
   }
 
   ngOnInit() {
-    console.log(this.lat);
-    console.log(this.lon);
-    this.loadMap();
+    if(this.lat && this.lon){
+      this.loadMap();
+    }
   }
 
   loadMap() {
 
-    let mapOptions: GoogleMapOptions = {
+    Environment.setEnv({
+      'API_KEY_FOR_BROWSER_RELEASE': 'AIzaSyCMcsiZ1AJmR3T7MKnJ8HaRtrWpw36rDDE',
+      'API_KEY_FOR_BROWSER_DEBUG': 'AIzaSyCMcsiZ1AJmR3T7MKnJ8HaRtrWpw36rDDE'
+    });
+
+
+    this.map = GoogleMaps.create('map_canvas', {
       camera: {
          target: {
-           lat: 43.0741904,
-           lng: -89.3809802
+           lat: this.lat,
+           lng: this.lon
          },
          zoom: 18,
          tilt: 30
        }
-    };
-
-    this.map = GoogleMaps.create('map_canvas', mapOptions);
+    });
   }
 }
