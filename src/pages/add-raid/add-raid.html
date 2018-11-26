@@ -14,36 +14,46 @@
   <ion-slides pager>
     <ion-slide>
       <ion-list radio-group [(ngModel)]="additionType">
-      
+        <ion-list-header>Locations</ion-list-header>
         <ion-item>
           <ion-label>Gym</ion-label>
           <ion-radio value="gym"></ion-radio>
         </ion-item>
-
+        <ion-item>
+          <ion-label>Pokestop</ion-label>
+          <ion-radio value="pokestop"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list radio-group [(ngModel)]="additionType">
+        <ion-list-header>Pokemon</ion-list-header>
         <ion-item>
           <ion-label>Raid</ion-label>
           <ion-radio value="raid"></ion-radio>
         </ion-item>
-      
         <ion-item>
           <ion-label>Quest</ion-label>
           <ion-radio value="quest"></ion-radio>
         </ion-item>
-      
+      </ion-list>
+      <ion-list radio-group [(ngModel)]="additionType">
+        <ion-list-header>Nearby</ion-list-header>
         <ion-item>
-          <ion-label>Trade</ion-label>
-          <ion-radio value="trade"></ion-radio>
+          <ion-label>Event</ion-label>
+          <ion-radio value="event"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Groups</ion-label>
+          <ion-radio value="groups"></ion-radio>
         </ion-item>
       </ion-list>
       <button ion-button (click)="nextSlide()">
         Select
       </button>
     </ion-slide>
-    <ion-slide *ngIf="additionType == 'gym'">
-      <!-- <div style="height: 200px;width: 100%;display:block;max-width:100%;border-bottom: 1px solid #333;" id="map" #map></div> -->
+    <ion-slide *ngIf="additionType == 'gym' || additionType == 'groups' || additionType == 'event'">
       <input-geo-search (receivedLocation)="selectLocation($event)"></input-geo-search>
       <ion-card *ngIf="newGymLocation">
-        If I can get image, put it here.
+        <img src="{{ newGymLocation.im }}" alt="">
         <h1>{{newGymLocation.n}}</h1>
         <h2>{{newGymLocation.ad}}</h2>
       </ion-card>
@@ -147,21 +157,32 @@
       <ion-list>
         <ion-item>
           <ion-label stacked>Reward</ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-input type="text" [(ngModel)]="questReward"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label stacked>Type</ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-input type="text" [(ngModel)]="questType"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label stacked>Goal</ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-input type="text" [(ngModel)]="questText"></ion-input>
         </ion-item>
       </ion-list>
-      <button ion-button>Add Quest</button>
+      <button ion-button (click)="addNewQuest()">Add Quest</button>
     </ion-slide>
-    <ion-slide *ngIf="additionType == 'trade'">
+    <!-- <ion-slide *ngIf="additionType == 'groups'">
+      <img src="{{newGymLocation.im}}" alt="">
+      <h1>{{newGymLocation.n}}</h1>
+      <h2>{{newGymLocation.ad}}</h2>
+    </ion-slide> -->
+    <ion-slide *ngIf="additionType == 'groups'">
+      <h2>Event</h2>
+    </ion-slide>
+    <ion-slide *ngIf="additionType == 'event'">
+      <h2>Event</h2>
+    </ion-slide>
+    <!-- <ion-slide *ngIf="additionType == 'trade'">
       <h2>Trade</h2>
-    </ion-slide>
+    </ion-slide> -->
   </ion-slides>
 </ion-content>

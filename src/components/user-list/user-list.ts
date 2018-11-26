@@ -1,60 +1,111 @@
-import { Component, Input } from '@angular/core';
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapOptions,
+  CameraPosition,
+  MarkerOptions,
+  Marker,
+  Environment
+} from '@ionic-native/google-maps';
+
+import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { UserProvider } from '../../providers/user/user';
 import { GeoProvider } from '../../providers/geo/geo';
+import { NavController } from 'ionic-angular';
+import { UserPage } from '../../pages/user/user';
 
 @Component({
   selector: 'user-list',
   templateUrl: 'user-list.html'
 })
 export class UserListComponent {
+  public map: GoogleMap;
+
   userListType: any = 'geo';
   friends: any[];
-  nearbyPlayers: any[];
+  nearbyPlayers: any[] = [];
   coords: any;
   isLocatorActive: boolean;
+  location: any;
 
   constructor(
     public user: UserProvider,
-    public geo: GeoProvider
+    public geo: GeoProvider,
+    public navCtrl: NavController
   ) {
     this.friends = this.user.userFriends || [];
 
-    if(this.geo.getLocation()) {
-      this.coords = this.geo.getLocation();
-      this.isLocatorActive = this.geo.isLocatorActive;
+    this.geo.isLocatorActive.subscribe(res => {
+      this.isLocatorActive = res;
+      this.location = this.geo.getLocation();
+    })
+  }
 
-      this.getNearbyPlayers();
+  ngAfterViewInit() {
+    if(this.isLocatorActive) {
+      this.location.subscribe(res => {
+        this.makeMap(res.lat, res.lon);
+        this.getNearbyPlayers();
+      })
     }
   }
 
-  setLocator() {
-    if(this.geo.isLocatorActive) {
-      this.geo.locatorOff();
-    } else {
-      this.geo.locatorOn();
-    }
+  goToPlayerPage(player) {
+    this.navCtrl.push(UserPage, {'user': player});
+  }
 
-    this.isLocatorActive = this.geo.isLocatorActive;
+  makeMap(lat, lon) {
+    let mapOptions: GoogleMapOptions = {
+      camera: {
+          target: {
+            lat: lat,
+            lng: lon
+          },
+          zoom: 14
+        }
+    };
+
+    this.map = GoogleMaps.create('map', mapOptions);
+  }
+
+  setMarkerColor(team) {
+    if(team === 'Mystic') {return 'blue';}
+    if(team === 'Valor') {return 'red';}
+    if(team === 'Instinct') {return 'yellow';}
+  }
+
+  placeMarkers(players) {
+    players.forEach(player => {
+      let marker: Marker = this.map.addMarkerSync({
+        title: player.un,
+        icon: this.setMarkerColor(player.t),
+        position: {
+          lat: player.pos.geopoint.latitude,
+          lng: player.pos.geopoint.longitude
+        }
+      });
+      
+      // marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+      //   alert('clicked');
+      //   some sort of ui interaction with person clicked on
+      // });
+    });
   }
 
   clickGetPlayers() {
-    this.setLocator();
     this.getNearbyPlayers();
   }
 
   getNearbyPlayers() {
-    this.setCoordinates();
-    this.coords = this.getCoordinates();
-    
-    let players = this.geo.getNearbyPlayers(this.coords.lat, this.coords.lon);
+    this.location.subscribe(res => {
+      let players = this.geo.getNearbyPlayers(res.lat, res.lon);
 
-    players.subscribe(res => {
-      this.nearbyPlayers = res;
+      players.subscribe(res => {
+        this.nearbyPlayers = res;
+        this.placeMarkers(res);
+      });
     });
-  }
-
-  setCoordinates() {
-    this.geo.setLocation(false);
   }
 
   getCoordinates() {

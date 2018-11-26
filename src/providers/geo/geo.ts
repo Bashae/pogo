@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ChangeDetectorRef } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
 import * as firebase from 'firebase/app';
 import * as geofirex from 'geofirex';
 import { switchMap } from 'rxjs/operators';
 import { UserProvider } from '../user/user';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 import {
   GoogleMaps,
@@ -13,16 +14,17 @@ import {
   GoogleMapOptions
 } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
+import { LoadingController } from 'ionic-angular';
 
 @Injectable()
 export class GeoProvider {
   geo = geofirex.init(firebase)
   points: Observable<any>
   radius = new BehaviorSubject(10)
-  location = {latitude: 0, longitude: 0}
-  currentLocation = {lat: 0, lon: 0}
+  currentLocation = new BehaviorSubject({lat: null, lon: null});
   subscription: any;
-  isLocatorActive: boolean = false;
+  isLocationAllowed: boolean = false;
+  isLocatorActive = new BehaviorSubject(true);
 
   nearbyFriends: any;
   nearbyEvents:  any;
@@ -32,17 +34,33 @@ export class GeoProvider {
     public afs: AngularFirestore,
     public userService: UserProvider,
     private geolocation: Geolocation,
-    private googleMaps: GoogleMaps
+    private googleMaps: GoogleMaps,
+    private androidPermissions: AndroidPermissions,
+    public loadingCtrl: LoadingController
   ) {
     
   }
 
+  async checkLocatorPermissions () {
+    await this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.LOCATION_HARDWARE).then(
+      result => {this.isLocationAllowed = true;},
+      err => {this.isLocationAllowed = false;}
+    );
+
+    return this.isLocationAllowed;
+  }
+
+  setLocator(bool) {
+    this.isLocatorActive.next(bool);
+    this.setLocation(!bool);
+  }
+
   locatorOn() {
-    this.isLocatorActive = true;
+    this.isLocatorActive.next(true);
   }
 
   locatorOff() {
-    this.isLocatorActive = false;
+    this.isLocatorActive.next(false);
   }
 
   getGeoPoint(lat, lon) {
@@ -55,13 +73,21 @@ export class GeoProvider {
 
   setLocation(loc) {
     if(!loc) {
-      this.geolocation.getCurrentPosition().then(resp => {
-        this.currentLocation.lat = resp.coords.latitude;
-        this.currentLocation.lon = resp.coords.longitude;
+      const loader = this.loadingCtrl.create({
+        content: "Receiving Location..."
       });
+      loader.present();
+  
+      this.geolocation.getCurrentPosition().then(resp => {
+        this.currentLocation.next({'lat': resp.coords.latitude, 'lon': resp.coords.longitude})
+        loader.dismiss();
+      });
+
+      // let newGeoPoint = this.getGeoPoint(this.currentLocation.lat, this.currentLocation.lon);
+      // this.userService.updateUserLocation(newGeoPoint);
+    } else {
+      this.currentLocation.next({'lat': null, 'lon': null});
     }
-    // let newGeoPoint = this.getGeoPoint(this.currentLocation.lat, this.currentLocation.lon);
-    // this.userService.updateUserLocation(newGeoPoint);
   }
 
   trackLocation() {
@@ -95,11 +121,13 @@ export class GeoProvider {
 
   getNearbyGyms() {
     this.setLocation(false);
-    let loc = this.getLocation();
     const field = 'pos';
-    let center = this.getGeoPoint(loc.lat, loc.lon);
-    console.log('getting gyms');
-    console.log(loc);
+    let loc = this.getLocation();
+    let center;
+
+    loc.subscribe(loc => {
+      center = this.getGeoPoint(loc.lat, loc.lon);
+    })
 
     return this.geo.collection('gy', ref =>
       ref.limit(15))
@@ -112,8 +140,8 @@ export class GeoProvider {
 
     return this.geo.collection('gy', ref =>
       ref.where('cr', '==', true)
-        .limit(15))
-        .within(center, 10, field);
+         .limit(15))
+         .within(center, 10, field);
   }
 
   getNearbyQuests(lat, lon) {
@@ -121,8 +149,9 @@ export class GeoProvider {
     let center = this.getGeoPoint(lat, lon);
 
     return this.geo.collection('gy', ref =>
-      ref.limit(15))
-          .within(center, 5, field);
+      ref.where('cq', '==', true)
+         .limit(15))
+         .within(center, 5, field);
   }
 
   getNearbyTrades(lat, lon) {

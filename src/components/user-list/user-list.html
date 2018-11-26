@@ -10,25 +10,27 @@
   
   <div [ngSwitch]="userListType">
     <ion-list *ngSwitchCase="'geo'">
-      <div style="height: 200px;width: 100%;display:block;max-width:100%;" id="map_canvas" *ngIf="coords"></div>
-      <ion-item class="no-padding--left">
-        <span style="color: #ddd;font-size: 14px;">Click the locator to find players near you.</span>
-        <button ion-button icon-only item-end (click)="clickGetPlayers()" class="button--locator button--locator__faded" [class.active]="isLocatorActive">
-          <ion-icon name="locate"></ion-icon>
-        </button>
-      </ion-item>
+      <div style="height: 200px;width: 100%;display:block;max-width:100%;" #map id="map" *ngIf="isLocatorActive"></div>
       <ion-scroll scrollY="true" style="height: 200px;">
-        <ion-item *ngFor="let player of nearbyPlayers">
-          <!-- <ion-thumbnail item-start>
-            <img src="img/thumbnail-totoro.png">
-          </ion-thumbnail> -->
+        <ion-item *ngFor="let player of nearbyPlayers" (click)="goToPlayerPage(player)">
+          <ion-thumbnail item-start>
+            <img src="https://firebasestorage.googleapis.com/v0/b/pogo-pal-1532794775743.appspot.com/o/andrew.jpg?alt=media&token=c401c972-fd26-45e8-8caa-2a8524c6050b">
+          </ion-thumbnail>
           <h2>{{ player.un }}</h2>
           <p>Within {{ getCeilDistance(player.queryMetadata.distance) }} Mi.</p>
-          <button ion-button clear item-end>Chat</button>
+          <!-- <button ion-button clear item-end>Chat</button> -->
+          <button ion-button clear item-end><img></button>
+          <img src="./assets/imgs/mystic.svg" clear item-end alt="" width="50">
         </ion-item>
       </ion-scroll>
       {{ lastIdiot }}
       {{ wasteEater }}
+      <ion-item *ngIf="!isLocatorActive">
+        Locator Not Active
+      </ion-item>
+      <ion-item *ngIf="isLocatorActive && nearbyPlayers.length < 1">
+        No Users Nearby
+      </ion-item>
     </ion-list>
 
     <div *ngSwitchCase="'default'">

@@ -1,3 +1,21 @@
 page-event {
+    .item--directions {
+        padding-left: 0;
 
+        .item-block .item--inner {
+            padding-left: 10px;
+        }
+
+        h1 {
+            font-size: 16px;
+        }
+        h2 {
+            font-size: 14px;
+            color: #d0d0d0;
+        }
+    }
+
+    .button--directions {
+        color: blue;
+    }
 }

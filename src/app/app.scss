@@ -48,6 +48,10 @@ $instinct: $instinctPrimaryColor;
     }
 }
 
+.toolbar-title {
+    font-size: 14px;
+}
+
 .button--default {
     background: transparent;
     box-shadow: none;
@@ -55,17 +59,20 @@ $instinct: $instinctPrimaryColor;
     font-size: 12px;
 }
 
-.button--login {
-    color: rgba(255, 255, 255, .5);
+.button--close-image {
+    color: #333;
+    float: left;
 }
 
-.button--locator {
-    background: transparent;
-    box-shadow: none;
-    color: #ddd;
+.button--login {
+    color: rgba(255, 255, 255, .25);
+}
+
+.button--location {
+    color: rgba(255, 255, 255, .25);
 
     &.active {
-        color: blue;
+        color: rgba(255, 255, 255, 1);
     }
 }
 

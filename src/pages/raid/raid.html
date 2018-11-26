@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf="raid.r.h">{{ pokemon.name }} Raid</ion-title>
+    <ion-title *ngIf="!raid.r.h">Level {{ raid.r.ra }} Raid</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content scroll>
+  <ion-grid class="grid--location-info">
+    <ion-row>
+      <ion-col col-12 class="container--location">
+        <img src="{{ raid.im }}" alt="" width="100%">
+        <button ion-button icon-only class="button--default button--open-directions">
+          <ion-icon name="pin"></ion-icon>
+        </button>
+        <button ion-button icon-only class="button--default button--send-location">
+          <ion-icon name="paper-plane"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row padding class="container--content">
+      <ion-col col-12 class="container--address">
+        <h1>{{ raid.n }}</h1>
+        <p>{{ raid.ad }}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list class="container--pokemon-content">
+    <ion-grid *ngIf="raid.r.ra === 1" class="grid--raidhead">
+      <ion-row>
+        <ion-col col-2><img src="assets/imgs/raidhead.png" width="100%" alt=""></ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid *ngIf="raid.r.ra === 2">
+      <ion-row>
+        <ion-col col-2><img src="assets/imgs/raidhead.png" width="100%" alt=""></ion-col>
+        <ion-col col-2><img src="assets/imgs/raidhead.png" width="100%" alt=""></ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid *ngIf="raid.r.ra === 3">
+      <ion-row>
+        <ion-col col-2><img src="assets/imgs/raidhead.png" width="100%" alt=""></ion-col>
+        <ion-col col-2><img src="assets/imgs/raidhead.png" width="100%" alt=""></ion-col>
+        <ion-col col-2><img src="assets/imgs/raidhead.png" width="100%" alt=""></ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid *ngIf="raid.r.ra === 4">
+      <ion-row>
+        <ion-col col-2><img src="assets/imgs/raidhead.png" width="100%" alt=""></ion-col>
+        <ion-col col-2><img src="assets/imgs/raidhead.png" width="100%" alt=""></ion-col>
+        <ion-col col-2><img src="assets/imgs/raidhead.png" width="100%" alt=""></ion-col>
+        <ion-col col-2><img src="assets/imgs/raidhead.png" width="100%" alt=""></ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid *ngIf="raid.r.ra === 5">
+      <ion-row>
+        <ion-col col-2><img src="assets/imgs/raidhead.png" width="100%" alt=""></ion-col>
+        <ion-col col-2><img src="assets/imgs/raidhead.png" width="100%" alt=""></ion-col>
+        <ion-col col-2><img src="assets/imgs/raidhead.png" width="100%" alt=""></ion-col>
+        <ion-col col-2><img src="assets/imgs/raidhead.png" width="100%" alt=""></ion-col>
+        <ion-col col-2><img src="assets/imgs/raidhead.png" width="100%" alt=""></ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-list *ngIf="raid.r.h" class="container--pokemon">
+      <ion-item>
+        <h1>25000</h1>
+      </ion-item>
+      <ion-item>
+        <img src="assets/imgs/pokemon/{{pokemon.image}}.svg" alt="">
+      </ion-item>
+      <ion-item>
+        <h1>Mewtwo</h1>
+      </ion-item>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-6>
+              <h2>Psychic</h2>
+            </ion-col>
+            <ion-col col-6>
+              <h2>Hyper Beam</h2>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ion-list>
+</ion-content>

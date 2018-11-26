@@ -7,22 +7,10 @@
 
   <div [ngSwitch]="selection">
     <group-list *ngSwitchCase='"Find Groups in the Area"'></group-list>
-
-    <ion-fab right bottom *ngIf="selection === 'Find Groups in the Area'">
-      <button ion-fab mini color="primary" (click)="goToAddGroupPage()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-fab>    
   </div>
 
   <div [ngSwitch]="selection">
     <event-list *ngSwitchCase='"Events in the Area"'></event-list>
-
-    <ion-fab right bottom *ngIf="selection === 'Events in the Area'">
-      <button ion-fab mini color="primary" (click)="goToAddEventPage()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-fab>
   </div>
 
   <div [ngSwitch]="selection">

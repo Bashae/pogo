@@ -1,27 +1,43 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapOptions,
+  CameraPosition,
+  MarkerOptions,
+  Marker,
+  Environment
+} from '@ionic-native/google-maps';
+
+import { Component } from '@angular/core';
 import { UserProvider } from '../../providers/user/user';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeoProvider } from '../../providers/geo/geo';
+import { NavController } from 'ionic-angular';
+import { GroupPage } from '../../pages/group/group';
 
 @Component({
   selector: 'group-list',
   templateUrl: 'group-list.html'
 })
 export class GroupListComponent {
+  public map: GoogleMap;
+
   groups: any[];
   groupListType: any = 'geo';
   coords: any;
   isLocatorActive: boolean;
+  location: any;
 
   // map: GoogleMap;
   // nearbyPlayers: any[];
-  nearbyGroups: any[];
+  nearbyGroups: any[] = [];
   // nearbyEvents: any[];
   // radius: number = 2;
   // selection: any = {"title": ""};
   // mapLat;
   // mapLon;
-  // autocomplete: string = "";
+  autocomplete: string = "";
   locations: any[];
   // location: any;
   // GoogleAutocomplete;
@@ -34,48 +50,72 @@ export class GroupListComponent {
     public user: UserProvider,
     public geo: Geolocation,
     public geoService: GeoProvider,
-    private changeDetector: ChangeDetectorRef
+    public navCtrl: NavController
   ) {
     this.groups = this.user.userGroups || [];
     this.locations = [];
 
-    if(!this.geoService.getLocation()) {
-      this.coords = this.geoService.getLocation();
-      this.isLocatorActive = this.geoService.isLocatorActive;
+    this.geoService.isLocatorActive.subscribe(res => {
+      this.isLocatorActive = res;
+      this.location = this.geoService.getLocation();
+    })
+  }
 
-      this.getGroupsByGeo();
+  ngAfterViewInit() {
+    if(this.isLocatorActive) {
+      this.location.subscribe(res => {
+        this.makeMap(res.lat, res.lon);
+        this.getGroupsByGeo();
+      })
     }
   }
 
-  ngOnDestroy() {
-    this.changeDetector.detach();
+  makeMap(lat, lon) {
+    let mapOptions: GoogleMapOptions = {
+      camera: {
+          target: {
+            lat: lat,
+            lng: lon
+          },
+          zoom: 14
+        }
+    };
+
+    this.map = GoogleMaps.create('map', mapOptions);
   }
 
-  setLocator() {
-    if(this.geoService.isLocatorActive) {
-      this.geoService.locatorOff();
-    } else {
-      this.geoService.locatorOn();
-    }
+  placeMarkers(groups) {
+    groups.forEach(group => {
+      let lat = group.pos.geopoint.latitude;
+      let lon = group.pos.geopoint.longitude;
 
-    this.isLocatorActive = this.geoService.isLocatorActive;
-  }
-
-  getGroupsByGeo() {
-    this.setCoordinates();
-    this.coords = this.getCoordinates();
-    
-    this.geo.getCurrentPosition().then(resp => {
-      let groups = this.geoService.getAreaGroups(resp.coords.latitude, resp.coords.longitude, 30);
-      groups.subscribe(res => {
-        this.nearbyGroups = res;
-        this.changeDetector.detectChanges();
+      let marker: Marker = this.map.addMarkerSync({
+        title: group.n + ' Pokemon Group',
+        icon: 'blue',
+        position: {
+          lat: lat,
+          lng: lon
+        }
       });
+      
+      // marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+      //   alert('clicked');
+      // });
     });
   }
 
-  setCoordinates() {
-    this.geoService.setLocation(false);
+  goToGroupPage(group) {
+    this.navCtrl.push(GroupPage, {'group': group});
+  }
+
+  getGroupsByGeo() {
+    this.location.subscribe(res => {
+      let groups = this.geoService.getAreaGroups(res.lat, res.lon, 30);
+      groups.subscribe(res => {
+        this.nearbyGroups = res;
+        this.placeMarkers(res);
+      });
+    })
   }
 
   getCoordinates() {

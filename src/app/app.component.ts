@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -15,21 +15,44 @@ import { GeoProvider } from '../providers/geo/geo';
 export class MyApp {
   @ViewChild(Nav) nav;
   rootPage:any = HomePage;
+  isLocatorActive: boolean;
 
   constructor(
     platform: Platform, 
     statusBar: StatusBar, 
     splashScreen: SplashScreen,
     private auth: AuthProvider,
-    private geo: GeoProvider
+    private geo: GeoProvider,
+    public changeDetector: ChangeDetectorRef
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      this.geo.setLocation(false);
+      if(platform.is('android')) {
+        if(this.geo.checkLocatorPermissions()) {
+          this.setUserLocation();
+        } else {
+          // show a message about activating location.
+        }
+      } else {
+        this.setUserLocation();
+      }
     });
+    
+    this.geo.isLocatorActive.subscribe(res => {
+      this.isLocatorActive = res;
+    })
+  }
+
+  toggleLocator() {
+    this.isLocatorActive = !this.isLocatorActive;
+    this.geo.setLocator(this.isLocatorActive);
+  }
+
+  setUserLocation() {
+    this.geo.setLocation(false);
   }
 
   goToHomePage() {

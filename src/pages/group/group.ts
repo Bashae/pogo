@@ -14,6 +14,8 @@ export class GroupPage {
     public navParams: NavParams
   ) {
     this.group = this.navParams.get('group');
+    console.log('what is group');
+    console.log(this.group);
   }
 
 }

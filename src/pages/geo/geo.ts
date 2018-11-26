@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { GeoProvider } from '../../providers/geo/geo';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -47,8 +47,7 @@ export class GeoPage {
     public geo: GeoProvider,
     private geolocation: Geolocation,
     public auth: AuthProvider,
-    private googleMaps: GoogleMaps,
-    private changeDetector: ChangeDetectorRef
+    private googleMaps: GoogleMaps
   ) {
     this.selection.title = "Looking for Pokemon";
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
@@ -148,7 +147,6 @@ export class GeoPage {
     
     groups.subscribe(res => {
       this.nearbyGroups = res;
-      this.changeDetector.detectChanges();
     });
   }
 
@@ -173,7 +171,7 @@ export class GeoPage {
     this.GoogleAutocomplete.getPlacePredictions({input: this.autocomplete}, res => {
       if(res !== null) {
         this.locations = res;
-        this.changeDetector.detectChanges();
+        // this.changeDetector.detectChanges();
       }
     });
 

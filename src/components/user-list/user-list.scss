@@ -1,3 +1,13 @@
 user-list {
+    ion-item.item {
+        padding-left: 0;
+        
+        ion-thumbnail[item-start] {
+            margin: 0 !important;
+        }
 
+        .item-inner {
+            padding-left: 10px;
+        }
+    }
 }

@@ -1,4 +1,4 @@
-<ion-list>
+<ion-list scroll>
   <ion-segment [(ngModel)]="eventListType">
     <ion-segment-button value="geo">
       Nearby Events
@@ -10,14 +10,7 @@
 
   <div [ngSwitch]="eventListType">
     <ion-list *ngSwitchCase="'geo'">
-      <div style="height: 200px;width: 100%;display:block;max-width:100%;" id="map_canvas" *ngIf="coords"></div>
-      <ion-item class="no-padding--left">
-        <ion-icon name="search" item-end style="color: #ddd;"></ion-icon>
-        <button ion-button icon-only item-end class="button--locator button--locator__faded" [class.active]="isLocatorActive" (click)="getEventsByGeo()">
-          <ion-icon name="locate"></ion-icon>
-        </button>
-        <ion-input placeholder="Enter a City, or click the locator!" [(ngModel)]="autocomplete" (keyup)="getAutocompleteResults()"></ion-input>
-      </ion-item>
+      <div style="height: 200px;width: 100%;display:block;max-width:100%;" #map id="map" *ngIf="isLocatorActive"></div>
       <ion-item *ngIf="locations.length > 0">
         <ion-list>
           <ion-item *ngFor="let loc of locations" (click)="selectLocation(loc)">
@@ -26,10 +19,18 @@
         </ion-list>
       </ion-item>
       <ion-scroll scrollY="true" style="height: 200px;">
-        <ion-item *ngFor="let event of nearbyEvents">
+        <ion-item *ngFor="let event of nearbyEvents" (click)="goToEventPage(event)">
           <h2>{{ event.n }}</h2>
+          <h3>{{ event.l }}</h3>
+          <p>Within {{ getCeilDistance(event.queryMetadata.distance) }} Mi.</p>
         </ion-item>
       </ion-scroll>
+      <ion-item *ngIf="!isLocatorActive">
+        Locator Not Active
+      </ion-item>
+      <ion-item *ngIf="isLocatorActive && nearbyEvents.length < 1">
+        No Events Nearby
+      </ion-item>
     </ion-list>
 
     <div *ngSwitchCase="'default'">

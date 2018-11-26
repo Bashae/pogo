@@ -1,4 +1,11 @@
 list-pokemon {
+    ion-item.item {
+        padding-left: 0;
+
+        ion-thumbnail[item-start] {
+            margin: 0;
+        }
+    }
     .no-padding--left {
         .label {
             margin: 0;

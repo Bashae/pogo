@@ -1,0 +1,147 @@
+page-raid {
+    h1 {
+        font-size: 20px;
+    }
+    p {
+        margin-top: 5px;
+        color: rgba(0, 0, 0, .5);    
+    }
+    .row {
+        justify-content: flext-start;
+    }
+    .grid.grid--raidhead {
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+    }
+    .grid.grid--location-info {
+        padding: 0;
+        .col {
+            padding: 0;
+        }
+    }
+    .button--open-directions {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: white;
+        color: blue;
+        border-radius: 50%;
+    }
+    .button--send-location {
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        background: white;
+        color: blue;
+        border-radius: 50%;
+    }
+    ion-content {
+        position: relative;
+    }
+    ion-label.label {
+        background: rgba(255, 255, 255, .5);
+        border-radius: 50%;
+        max-width: 100px;
+        max-height: 100px;
+        width: 100px;
+        height: 100px;
+        
+        img {
+            margin: 10px auto 0 auto;
+            display: block;
+            height: 80px;
+        }
+    }
+    .item .item-inner {
+        border: none !important;
+    }
+    .container--location {
+        position: relative;
+    }
+    .container--content {
+        margin-top: -60px;
+        text-align: center;
+
+        h1 {
+            font-size: 17px;
+            margin-bottom: 0;
+            padding-top: 10px;
+        }
+        p {
+            font-size: 13px;
+            margin-top: 3px;
+        }
+        
+        .container--address {
+            background: white;
+            padding-top: 10px;
+            border-radius: 5px;
+        }
+    }
+    .container--pokemon-content {
+        margin-top: -20px;
+        padding-bottom: 50px;
+
+        .grid {
+            .row {
+                justify-content: center;
+                border-bottom: 1px solid #ddd;
+                border-top: 1px solid #ddd;
+                padding-top: 5px;
+            }
+            .col {
+                padding: 0;
+            }
+        }
+    }
+    .container--pokemon {
+        text-align: center;
+
+        h1, h2, h3 {
+            padding: 0;
+            margin: 0;
+            font-weight: 400;
+            font-size: 18px;
+        }
+        h1 {
+            font-size: 22px;
+            font-weight: 500;
+            color: #a0a0a0;
+            margin-top: 5px;
+        }
+        h2 {
+            font-size: 18px;
+            color: #a0a0a0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                margin-bottom: 10px;
+            }
+        }
+        .grid {
+            .col {
+                padding-bottom: 10px;
+                padding-top: 5px;
+            }
+        }
+        ion-label.label {
+            border-radius: 0;
+            max-width: none;;
+            max-height: none;
+            width: auto;
+            height: auto;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+
+            img {
+                height: auto;
+                width: 50%;
+            }
+        }
+    }
+}

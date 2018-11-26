@@ -35,6 +35,10 @@ import { GymProvider } from '../providers/gym/gym';
 import { RaidProvider } from '../providers/raid/raid';
 import { QuestProvider } from '../providers/quest/quest';
 import { TradeProvider } from '../providers/trade/trade';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { UserPage } from '../pages/user/user';
+import { EventPage } from '../pages/event/event';
+import { RaidPage } from '../pages/raid/raid';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyC_f0a9UhqZniUM87FtEKp32FbDJXI7wj8",
@@ -59,7 +63,10 @@ export const firebaseConfig = {
     AddQuestPage,
     AddTradePage,
     AddModalPage,
-    AddGymPage
+    AddGymPage,
+    UserPage,
+    EventPage,
+    RaidPage
   ],
   imports: [
     BrowserModule,
@@ -81,9 +88,13 @@ export const firebaseConfig = {
     AddQuestPage,
     AddTradePage,
     AddModalPage,
-    AddGymPage
+    AddGymPage,
+    UserPage,
+    EventPage,
+    RaidPage
   ],
   providers: [
+    AndroidPermissions,
     AngularFireAuth,
     AngularFireModule,
     AngularFirestore,

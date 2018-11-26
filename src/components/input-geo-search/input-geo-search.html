@@ -1,8 +1,38 @@
-<ion-item class="no-padding--left">
-  <ion-icon name="search" item-end style="color: #ddd;"></ion-icon>
+<div #map id="map">
+  <ion-spinner></ion-spinner>
+</div>
+
+<ion-list *ngIf="selectedImage">
+  <button ion-button icon-only (click)="deselectLocationImage()" class="button--default button--close-image">
+    <ion-icon name="close"></ion-icon>
+  </button>
+  <img src="{{ selectedImage }}" alt="">
+  
+  <h2>{{ location.n }}</h2>
+  <h3>{{ location.ad }}</h3>
+  
+  <button ion-button (click)="selectLocationImage()" class="button--select-image">Continue</button>
+</ion-list>
+
+<ion-grid *ngIf="!selectedImage">
+  <div *ngFor="let im of locationImages;let i = index">
+    <ion-row *ngIf="(i % 2) == 0">
+      <ion-col col-6 (click)="selectImage(locationImages[i].getUrl())">
+        <img src="{{ locationImages[i].getUrl() }}" alt="">
+      </ion-col>
+      <ion-col col-6 (click)="selectImage(locationImages[i+1].getUrl())">
+        <img src="{{ locationImages[i+1].getUrl() }}" alt="">
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-grid>
+
+<ion-item class="no-padding--left" *ngIf="!selectedImage">
+  <!-- <ion-icon name="search" item-end style="color: #ddd;"></ion-icon> -->
   <ion-input id="autocompleteSearch" placeholder="Enter a City, or click the locator!" [(ngModel)]="autocomplete" (keyup)="getAutocompleteResults()"></ion-input>
   <input type="hidden" id="locationSearch" value="{{autocomplete}}" />
 </ion-item>
+
 <ion-item *ngIf="locations.length > 0">
   <ion-list>
     <ion-item *ngFor="let loc of locations" (click)="selectLocation(loc)">

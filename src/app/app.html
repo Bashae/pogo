@@ -2,15 +2,15 @@
     <ion-grid>
         <ion-row>
             <ion-col col-2>
-                <button ion-button icon-only class="button--default button--home" (click)="goToHomePage()">
-                <ion-icon name="home"></ion-icon>
+                <button ion-button icon-only class="button--default button--login" [class.active]="auth.isLoggedIn" (click)="checkSessionStatus()">
+                <ion-icon name="power"></ion-icon>
                 </button>
             </ion-col>
-            <ion-col col-7>
+            <ion-col col-8>
             </ion-col>
-            <ion-col col-3>
-                <button ion-button icon-only class="button--default button--login" (click)="checkSessionStatus()">
-                <ion-icon name="power"></ion-icon>
+            <ion-col col-2>
+                <button ion-button icon-only class="button--default button--location" [class.active]="isLocatorActive" (click)="toggleLocator()">
+                    <ion-icon name="locate"></ion-icon>
                 </button>
             </ion-col>
         </ion-row>

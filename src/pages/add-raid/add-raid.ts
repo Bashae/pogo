@@ -71,8 +71,6 @@ export class AddRaidPage {
   }
 
   nextSlide() {
-    console.log('type');
-    console.log(this.additionType);
     this.currentSlide++;
     this.slides.slideNext();
   }
@@ -87,14 +85,10 @@ export class AddRaidPage {
   }
 
   selectType(type) {
-    console.log('type is');
-    console.log(type);
     this.additionType = type;
   }
 
   selectItem(gym) {
-    console.log('gym');
-    console.log(gym);
     this.selectedGym = gym;
     this.nextSlide();
   }
@@ -112,6 +106,7 @@ export class AddRaidPage {
     loc.pos.geohash = this.geo.getGeoPoint(loc.pos.geopoint[0], loc.pos.geopoint[1]).hash;
     loc.pos.geopoint = new firebase.firestore.GeoPoint(loc.pos.geopoint[0], loc.pos.geopoint[1])
     this.nextSlide();
+    console.log(loc);
   }
 
   addNewLocation() {
@@ -124,6 +119,7 @@ export class AddRaidPage {
     let gym = this.selectedGym.lid;
     let data = this.selectedGym;
 
+    data['cq'] = true;
     data['q'] = {
       'r': this.questReward,
       'te': this.questText,
@@ -131,26 +127,31 @@ export class AddRaidPage {
     }
 
     this.gymService.updateGym(gym, data);
+    this.closeSlides();
   }
 
   addRaidEgg() {
     // Find by location id (lid)
     let gym = this.selectedGym.lid;
     let data = this.selectedGym;
-
+    
+    data['cr'] = true;
     data['r'] = {
       'h': this.isHatched,
       'ra': this.raidNumber,
-      'tth': this.hatchInput
+      'tth': this.hatchInput,
     }
 
     this.gymService.updateGym(gym, data);
+    this.closeSlides();
   }
 
   addNewRaid() {
     // Find by location id (lid)
     let gym = this.selectedGym.lid;
     let data = this.selectedGym;
+
+    data['cr'] = true;
     data['r'] = {
       'p': this.raidPokemon,
       'tr': this.raidTimeRemaining,
@@ -162,7 +163,8 @@ export class AddRaidPage {
       'tth': 0
     }
 
-    this.gymService.updateGym(gym, data)
+    this.gymService.updateGym(gym, data);
+    this.closeSlides();
   }
 
   getGyms() {

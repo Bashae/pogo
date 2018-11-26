@@ -1,53 +1,70 @@
 <ion-list>
   <ion-item class="no-padding--left">
     <ion-segment [(ngModel)]="searchType">
-      <ion-segment-button value="raids">
+      <ion-segment-button value="raids" (click)="typeChanged(1)">
         Raids
       </ion-segment-button>
-      <ion-segment-button value="quests">
+      <ion-segment-button value="quests" (click)="typeChanged(2)">
         Quests
       </ion-segment-button>
-      <ion-segment-button value="trades">
+      <!-- <ion-segment-button value="trades">
         Trades
-      </ion-segment-button>
+      </ion-segment-button> -->
     </ion-segment>
   </ion-item>
+  <div style="height: 200px;width: 100%;display:block;max-width:100%;" #map id="map" *ngIf="isLocatorActive"></div>
   <div [ngSwitch]="searchType">
     <ion-list *ngSwitchCase="'raids'">
-      <ion-item *ngFor="let raid of nearbyRaids">
-        <h1>{{ raid.n }}</h1>
-      </ion-item>
-      <ion-item *ngIf="nearbyRaids === 0">
-        <h1>No Current Raids Nearby</h1>
-      </ion-item>
-      <ion-fab right bottom>
-        <button ion-fab color="primary" mini (click)="openAddModalPage()"><ion-icon name="add"></ion-icon></button>
-      </ion-fab>
-    </ion-list>
+      <ion-item *ngFor="let raid of nearbyRaids" (click)="goToRaidPage(raid, displayPokemon(raid.r.p))">
+        <ion-thumbnail item-start style="text-align: center;" *ngIf="raid.r.h">
+          <img src="assets/imgs/pokemon/{{displayPokemon(raid.r.p).image}}.svg" alt="" width="65" style="max-width: 65px;margin: 0 auto;">
+        </ion-thumbnail>
+        <ion-thumbnail item-start style="text-align: center;" *ngIf="!raid.r.h">
+          <img src="assets/imgs/raidhead.png" alt="" width="65" style="max-width: 65px;margin: 0 auto;">
+        </ion-thumbnail>
+        <h2 *ngIf="raid.r.h">{{ displayPokemon(raid.r.p).number }} {{ displayPokemon(raid.r.p).name }}</h2>
+        <h2 *ngIf="!raid.r.h">Level {{ raid.r.ra }} Egg</h2>
+        <p>{{ raid.ad }}</p>
+        <p>Within {{ getCeilDistance(raid.queryMetadata.distance) }}Mi.</p>
+    </ion-item>
+    <ion-item *ngIf="nearbyRaids.length == 0">
+      <h1>No Current Raids Nearby</h1>
+    </ion-item>
+  </ion-list>
+
+    <!-- <ion-item *ngFor="let p of pokeman; let i = index">
+      {{p.name}} | {{p.generation}}
+      <br><br>
+      <img src="assets/imgs/pokemon/{{p.image}}.svg" alt="">
+    </ion-item> -->
+    <!-- List of Pokemon -->
   
     <ion-list *ngSwitchCase="'quests'">
       <ion-item *ngFor="let quest of nearbyQuests">
-        {{ quest.n }}
+        <ion-thumbnail item-start *ngIf="quest.im">
+          <!-- <img src="{{ quest.im }}" alt=""> -->
+          <img src="assets/imgs/pokemon/001-bulbasaur.svg" alt="" width="100">
+        </ion-thumbnail>
+        <h2>{{ quest.n }}</h2>
+        <p>{{ quest.ad }}</p>
+        <p>Within {{ getCeilDistance(quest.queryMetadata.distance) }}M</p>
       </ion-item>
-      <ion-item *ngIf="nearbyQuests === 0">
+      <ion-item *ngIf="nearbyQuests.length == 0">
         <h1>No Current Quests Nearby</h1>
       </ion-item>
-
-      <ion-fab right bottom>
-        <button ion-fab color="primary" mini (click)="openAddQuestPage()"><ion-icon name="add"></ion-icon></button>
-      </ion-fab>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'trades'">
+    <!-- <ion-list *ngSwitchCase="'trades'">
       <ion-item *ngFor="let trade of nearbyTrades">
         {{ trade.n }}
       </ion-item>
-      <ion-item *ngIf="nearbyTrades.length === 0">
+      <ion-item *ngIf="nearbyTrades.length == 0">
         <h1>No Current Trades Nearby</h1>
       </ion-item>
-      <ion-fab right bottom>
-        <button ion-fab color="primary" mini (click)="openAddTradePage()"><ion-icon name="add"></ion-icon></button>
-      </ion-fab>
-    </ion-list>
+    </ion-list> -->
+
+    <ion-fab right bottom>
+      <button ion-fab color="primary" mini (click)="openAddModalPage()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
   </div>
 </ion-list>
