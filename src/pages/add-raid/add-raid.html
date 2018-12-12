@@ -46,11 +46,11 @@
           <ion-radio value="groups"></ion-radio>
         </ion-item>
       </ion-list>
-      <button ion-button (click)="nextSlide()">
+      <button ion-button round (click)="nextSlide()">
         Select
       </button>
     </ion-slide>
-    <ion-slide *ngIf="additionType == 'gym' || additionType == 'groups' || additionType == 'event'">
+    <ion-slide *ngIf="additionType == 'gym' || 'additionType' == 'pokestop' || additionType == 'groups' || additionType == 'event'">
       <input-geo-search (receivedLocation)="selectLocation($event)"></input-geo-search>
       <ion-card *ngIf="newGymLocation">
         <img src="{{ newGymLocation.im }}" alt="">
@@ -60,7 +60,9 @@
       <button ion-button *ngIf="newGymLocation" (click)="addNewLocation()">Add This Location</button>
     </ion-slide>
     <ion-slide *ngIf="additionType == 'raid' || additionType == 'quest'">
+      
       <div style="height: 200px;width: 100%;display:block;max-width:100%;border-bottom: 1px solid #333;" id="map" #map></div>
+      
       <ion-list>
         <ion-item (click)="selectItem(gym)" *ngFor="let gym of gyms">
           <h1>{{ gym.n }}</h1>
@@ -123,7 +125,7 @@
           <ion-input type="text"></ion-input>
         </ion-item>
       </ion-list> -->
-      <button ion-button *ngIf="isHatched == false" [disabled]="!hatchInput" (click)="addRaidEgg()">Add Raid</button>
+      <button ion-button round *ngIf="isHatched == false" [disabled]="!hatchInput" (click)="addRaidEgg()">Add Raid</button>
     </ion-slide>
     <ion-slide *ngIf="additionType == 'raid'">
       <ion-list>
@@ -151,7 +153,7 @@
           <ion-input type="text" [(ngModel)]="attackTwo"></ion-input>
         </ion-item>
       </ion-list>
-      <button ion-button (click)="addNewRaid()">Add Raid</button>        
+      <button ion-button round (click)="addNewRaid()">Add Raid</button>        
     </ion-slide>
     <ion-slide *ngIf="additionType == 'quest'">
       <ion-list>
@@ -176,10 +178,29 @@
       <h2>{{newGymLocation.ad}}</h2>
     </ion-slide> -->
     <ion-slide *ngIf="additionType == 'groups'">
-      <h2>Event</h2>
+      <h2>So, we're adding a Group at:</h2>
+      <h3>Location Place</h3>
+      <h2>Would you like to add an image of the location?</h2>
+      <button ion-button round>Upload Image</button>
     </ion-slide>
     <ion-slide *ngIf="additionType == 'event'">
-      <h2>Event</h2>
+      <ion-list class="slide--event">
+        <h2>So, we're adding an Event at:</h2>
+        <h3>Location Place</h3>
+        <h2>Would you like to add an image of the location?</h2>
+        <button ion-button round>Upload Image</button>
+      </ion-list>
+    </ion-slide>
+    <ion-slide *ngIf="additionType == 'groups'">
+      <h2>Want to tell us more about your group?</h2>
+      <ion-list>
+        <ion-item>
+          <ion-label stacked>Group Name</ion-label>
+          <ion-input type="text" value=""></ion-input>
+        </ion-item>
+        <h2>Upload an image of your group!</h2>
+        <button ion-button round>Upload Image</button>
+      </ion-list>
     </ion-slide>
     <!-- <ion-slide *ngIf="additionType == 'trade'">
       <h2>Trade</h2>

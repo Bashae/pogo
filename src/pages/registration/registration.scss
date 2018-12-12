@@ -1,3 +1,20 @@
 page-registration {
+    .list--button-team {
+        text-align: center;
 
+        button {
+            background: white;
+            min-height: 125px;
+            position: relative;
+            width: 100%;
+        }
+        h3 {
+            bottom: 0;
+            font-size: 16px;
+            font-weight: 500;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+    }
 }

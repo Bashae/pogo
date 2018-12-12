@@ -78,7 +78,7 @@ export class GeoProvider {
       });
       loader.present();
   
-      this.geolocation.getCurrentPosition().then(resp => {
+      this.geolocation.getCurrentPosition({timeout: 15000}).then(resp => {
         this.currentLocation.next({'lat': resp.coords.latitude, 'lon': resp.coords.longitude})
         loader.dismiss();
       });
@@ -108,6 +108,7 @@ export class GeoProvider {
     })
   }
 
+  // Collection Retrieval
   getNearbyPlayers(lat, lon) {
     const field = 'pos';
     let center = this.getGeoPoint(lat, lon);
@@ -120,7 +121,6 @@ export class GeoProvider {
   }
 
   getNearbyGyms() {
-    this.setLocation(false);
     const field = 'pos';
     let loc = this.getLocation();
     let center;

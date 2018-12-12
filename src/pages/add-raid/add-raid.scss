@@ -25,4 +25,25 @@ page-add-raid {
     .back-button {
         display: none !important;
     }
+
+    .slide--event, .slide--group {
+        text-align: center;
+
+        &.list {
+            margin-top: 40px;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin-top: 40px;
+            color: #333;
+        }
+        h3 {
+            font-size: 16px;
+            color: #ddd;
+        }
+        button {
+            padding: 15px 20px;
+        }
+    }
 }

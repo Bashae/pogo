@@ -22,11 +22,14 @@ export class UserProvider {
     this.friendCollection = this.afs.collection('uf');
     this.eventCollection= this.afs.collection('ue');
     this.groupCollection = this.afs.collection('ug');
+    this.userCollection = this.afs.collection('users');
+  }
+
+  createUser(user) {
+    return this.userCollection.add(user);
   }
 
   setUser(v) {
-    this.userCollection = this.afs.collection('users');
-
     let userQuery = this.userCollection.ref
       .where('ui', '==', v)
       .get();

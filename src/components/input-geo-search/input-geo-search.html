@@ -1,31 +1,6 @@
-<div #map id="map">
+<div style="height: 200px;width: 100%;display:block;max-width:100%;border-bottom: 1px solid #333;" id="map" #map>
   <ion-spinner></ion-spinner>
 </div>
-
-<ion-list *ngIf="selectedImage">
-  <button ion-button icon-only (click)="deselectLocationImage()" class="button--default button--close-image">
-    <ion-icon name="close"></ion-icon>
-  </button>
-  <img src="{{ selectedImage }}" alt="">
-  
-  <h2>{{ location.n }}</h2>
-  <h3>{{ location.ad }}</h3>
-  
-  <button ion-button (click)="selectLocationImage()" class="button--select-image">Continue</button>
-</ion-list>
-
-<ion-grid *ngIf="!selectedImage">
-  <div *ngFor="let im of locationImages;let i = index">
-    <ion-row *ngIf="(i % 2) == 0">
-      <ion-col col-6 (click)="selectImage(locationImages[i].getUrl())">
-        <img src="{{ locationImages[i].getUrl() }}" alt="">
-      </ion-col>
-      <ion-col col-6 (click)="selectImage(locationImages[i+1].getUrl())">
-        <img src="{{ locationImages[i+1].getUrl() }}" alt="">
-      </ion-col>
-    </ion-row>
-  </div>
-</ion-grid>
 
 <ion-item class="no-padding--left" *ngIf="!selectedImage">
   <!-- <ion-icon name="search" item-end style="color: #ddd;"></ion-icon> -->

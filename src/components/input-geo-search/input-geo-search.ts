@@ -15,8 +15,6 @@ export class InputGeoSearchComponent {
   Geocoder;
   locations: any[];
   location: any;
-  locationImages: any[];
-  selectedImage: string = "";
 
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -24,7 +22,6 @@ export class InputGeoSearchComponent {
     public zone: NgZone
   ) {
     this.locations = [];
-    this.locationImages = [];
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.Geocoder = new google.maps.Geocoder();
   }
@@ -39,19 +36,6 @@ export class InputGeoSearchComponent {
 
   ngOnDestroy(){
     this.changeDetector.detach();
-  }
-
-  selectImage(url) {
-    this.selectedImage = url;
-  }
-
-  selectLocationImage() {
-    this.location['im'] = this.selectedImage;
-    this.submitLocation();
-  }
-
-  deselectLocationImage() {
-    this.selectedImage = "";
   }
 
   getAutocompleteResults() {
@@ -77,12 +61,11 @@ export class InputGeoSearchComponent {
       pos: {}
     }
 
-    let _that = this;
     this.GooglePlacesService.getDetails({'placeId': loc_obj.id}, (details) => {
-      this.locationImages = details.photos;
-        loc_obj['ad'] = details['formatted_address'];
-        loc_obj['pos']['geopoint'] = [details['geometry']['location'].lat(), details['geometry']['location'].lng()];
-        this.location = loc_obj;
+      loc_obj['ad'] = details['formatted_address'];
+      loc_obj['pos']['geopoint'] = [details['geometry']['location'].lat(), details['geometry']['location'].lng()];
+      this.location = loc_obj;
+      this.submitLocation();
     });
   }
 
@@ -92,7 +75,5 @@ export class InputGeoSearchComponent {
     this.autocomplete = "";
     this.locations = [];
     this.location = {};
-    this.locationImages = [];
-    this.selectedImage = "";
   }
 }

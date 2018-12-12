@@ -1,3 +1,67 @@
 <ion-content padding>
-
+    <ion-slides>
+        <ion-slide>
+            <ion-list>
+                <h2>Create your login:</h2>
+                <ion-item>
+                    <ion-label stacked>Email</ion-label>
+                    <ion-input [(ngModel)]="userCredentials.email" type="text" value=""></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label stacked>Password</ion-label>
+                    <ion-input [(ngModel)]="userCredentials.password" type="password" value=""></ion-input>
+                </ion-item>
+            </ion-list>
+            <button ion-button (click)="nextSlide()">Next Step</button>
+        </ion-slide>
+        <ion-slide>
+            <ion-list>
+                <h2>Which Team do you represent?</h2>
+                <ion-item>
+                    <ion-grid class="list--button-team">
+                        <ion-row>
+                            <ion-col col-4>
+                                <button (click)="selectTeam('Mystic')">
+                                    <img src="assets/imgs/mystic.svg" alt="" width="100%">
+                                    <h3>Mystic</h3>
+                                </button>
+                            </ion-col>
+                            <ion-col col-4>
+                                <button (click)="selectTeam('Valor')">
+                                    <img src="assets/imgs/valor.svg" alt="" width="100%">
+                                    <h3>Valor</h3>
+                                </button>
+                            </ion-col>
+                            <ion-col col-4>
+                                <button (click)="selectTeam('Instinct')">
+                                    <img src="assets/imgs/instinct.svg" alt="" width="100%">
+                                    <h3>Instinct</h3>
+                                </button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </ion-list>
+            <button ion-button (click)="nextSlide()">Next Step</button>
+        </ion-slide>
+        <ion-slide>
+            <ion-list>
+                <h2>What should others know about you?</h2>
+                <p class="sub-context">This info is optional.</p>
+                <ion-item>
+                    <ion-label stacked>What should people call you?</ion-label>
+                    <ion-input [(ngModel)]="userInfo.n" type="text" value=""></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label stacked>What's your Username?</ion-label>
+                    <ion-input [(ngModel)]="userInfo.un" type="text" value=""></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label stacked>What's your Friend Code?</ion-label>
+                    <ion-input [(ngModel)]="userInfo.fc" type="text" value=""></ion-input>
+                </ion-item>
+            </ion-list>
+            <button ion-button (click)="finishSignup()">Complete Signup</button>
+        </ion-slide>
+    </ion-slides>
 </ion-content>

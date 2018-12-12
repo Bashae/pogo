@@ -102,6 +102,8 @@ export class AddRaidPage {
   }
 
   selectLocation(loc) {
+    console.log('select location');
+    console.log(loc);
     this.newGymLocation = loc;
     loc.pos.geohash = this.geo.getGeoPoint(loc.pos.geopoint[0], loc.pos.geopoint[1]).hash;
     loc.pos.geopoint = new firebase.firestore.GeoPoint(loc.pos.geopoint[0], loc.pos.geopoint[1])

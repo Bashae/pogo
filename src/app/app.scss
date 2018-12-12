@@ -64,8 +64,17 @@ $instinct: $instinctPrimaryColor;
     float: left;
 }
 
-.button--login {
-    color: rgba(255, 255, 255, .25);
+.button--sign-in, .button--sign-up {
+    // color: rgba(255, 255, 255, .25);
+    color: #fff;
+}
+
+.button--sign-in {
+    float: right;
+}
+
+.button--sign-up {
+    float: left;
 }
 
 .button--location {

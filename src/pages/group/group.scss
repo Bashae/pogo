@@ -42,4 +42,15 @@ page-group {
     .grid .title {
         text-align: center;
     }
+    .logos--group {
+        list-style-type: none;
+        li {
+            display: inline-block;
+        }
+        button {
+            background: transparent;
+            box-shadow: none;
+            color: #333;
+        }
+    }
 }
