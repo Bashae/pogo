@@ -12,7 +12,7 @@
                     <ion-input [(ngModel)]="userCredentials.password" type="password" value=""></ion-input>
                 </ion-item>
             </ion-list>
-            <button ion-button (click)="nextSlide()">Next Step</button>
+            <button class="button--login" ion-button (click)="nextSlide()">Next Step</button>
         </ion-slide>
         <ion-slide>
             <ion-list>
@@ -42,7 +42,7 @@
                     </ion-grid>
                 </ion-item>
             </ion-list>
-            <button ion-button (click)="nextSlide()">Next Step</button>
+            <button class="button--login" ion-button (click)="nextSlide()">Next Step</button>
         </ion-slide>
         <ion-slide>
             <ion-list>
@@ -61,7 +61,7 @@
                     <ion-input [(ngModel)]="userInfo.fc" type="text" value=""></ion-input>
                 </ion-item>
             </ion-list>
-            <button ion-button (click)="finishSignup()">Complete Signup</button>
+            <button class="button--login" ion-button (click)="finishSignup()">Complete Signup</button>
         </ion-slide>
     </ion-slides>
 </ion-content>

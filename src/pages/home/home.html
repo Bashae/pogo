@@ -1,20 +1,22 @@
 <ion-content>
-  <grid-selection (typeChanged)="changeSelection($event)"></grid-selection>
+  <!-- <grid-selection (typeChanged)="changeSelection($event)"></grid-selection> -->
 
-  <div [ngSwitch]="selection">
+  <div><user-list></user-list></div>
+
+  <!-- <div [ngSwitch]="selection">
     <user-list *ngSwitchCase='"Find Nearby Players"'></user-list>
-  </div>
+  </div> -->
 
-  <div [ngSwitch]="selection">
+  <!-- <div [ngSwitch]="selection">
     <group-list *ngSwitchCase='"Find Groups in the Area"'></group-list>
-  </div>
+  </div> -->
 
-  <div [ngSwitch]="selection">
+  <!-- <div [ngSwitch]="selection">
     <event-list *ngSwitchCase='"Events in the Area"'></event-list>
-  </div>
+  </div> -->
 
-  <div [ngSwitch]="selection">
+  <!-- <div [ngSwitch]="selection">
     <list-pokemon *ngSwitchCase='"Looking for Pokemon"'></list-pokemon>
-  </div>
+  </div> -->
 </ion-content>
     

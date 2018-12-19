@@ -81,7 +81,9 @@ export class GeoProvider {
       this.geolocation.getCurrentPosition({timeout: 15000}).then(resp => {
         this.currentLocation.next({'lat': resp.coords.latitude, 'lon': resp.coords.longitude})
         loader.dismiss();
-      });
+      }).catch(res => {
+        loader.dismiss();
+      })
 
       // let newGeoPoint = this.getGeoPoint(this.currentLocation.lat, this.currentLocation.lon);
       // this.userService.updateUserLocation(newGeoPoint);

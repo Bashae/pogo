@@ -40,6 +40,10 @@ import { UserPage } from '../pages/user/user';
 import { EventPage } from '../pages/event/event';
 import { RaidPage } from '../pages/raid/raid';
 
+
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
+
 export const firebaseConfig = {
   apiKey: "AIzaSyC_f0a9UhqZniUM87FtEKp32FbDJXI7wj8",
   authDomain: "pogo-pal-1532794775743.firebaseapp.com",
@@ -98,6 +102,7 @@ export const firebaseConfig = {
     AngularFireAuth,
     AngularFireModule,
     AngularFirestore,
+    Camera,
     GoogleMaps,
     StatusBar,
     SplashScreen,

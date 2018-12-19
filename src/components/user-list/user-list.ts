@@ -1,15 +1,11 @@
 import {
   GoogleMaps,
   GoogleMap,
-  GoogleMapsEvent,
   GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
-  Marker,
-  Environment
+  Marker
 } from '@ionic-native/google-maps';
 
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserProvider } from '../../providers/user/user';
 import { GeoProvider } from '../../providers/geo/geo';
 import { NavController } from 'ionic-angular';
@@ -23,6 +19,7 @@ export class UserListComponent {
   public map: GoogleMap;
 
   userListType: any = 'geo';
+  userImage: string = "";
   friends: any[];
   nearbyPlayers: any[] = [];
   coords: any;
@@ -43,10 +40,13 @@ export class UserListComponent {
   }
 
   ngAfterViewInit() {
+    console.log('anit has been viewed');
     if(this.isLocatorActive) {
       this.location.subscribe(res => {
-        this.makeMap(res.lat, res.lon);
-        this.getNearbyPlayers();
+        if(res.lat !== null){
+          this.makeMap(res.lat, res.lon);
+          this.getNearbyPlayers();
+        }
       })
     }
   }

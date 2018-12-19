@@ -1,28 +1,32 @@
 <ion-list>
-  <ion-segment [(ngModel)]="userListType">
+  <!-- <ion-segment [(ngModel)]="userListType">
     <ion-segment-button value="geo">
       Nearby Players
     </ion-segment-button>
     <ion-segment-button value="default">
       Favorites
     </ion-segment-button>
-  </ion-segment>
+  </ion-segment> -->
   
   <div [ngSwitch]="userListType">
     <ion-list *ngSwitchCase="'geo'">
-      <div style="height: 200px;width: 100%;display:block;max-width:100%;" #map id="map" *ngIf="isLocatorActive"></div>
-      <ion-scroll scrollY="true" style="height: 200px;">
-        <ion-item *ngFor="let player of nearbyPlayers" (click)="goToPlayerPage(player)">
-          <ion-thumbnail item-start>
-            <img src="https://firebasestorage.googleapis.com/v0/b/pogo-pal-1532794775743.appspot.com/o/andrew.jpg?alt=media&token=c401c972-fd26-45e8-8caa-2a8524c6050b">
-          </ion-thumbnail>
-          <h2>{{ player.un }}</h2>
-          <p>Within {{ getCeilDistance(player.queryMetadata.distance) }} Mi.</p>
-          <!-- <button ion-button clear item-end>Chat</button> -->
-          <button ion-button clear item-end><img></button>
-          <img src="./assets/imgs/mystic.svg" clear item-end alt="" width="50">
-        </ion-item>
-      </ion-scroll>
+      <div style="height: 350px;width: 100%;display:block;max-width:100%;" #map id="map" *ngIf="isLocatorActive"></div>
+      <!-- <ion-scroll scrollY="true" style="height: 200px;"> -->
+        <!-- <ion-scroll-header>Nearby Players</ion-scroll-header> -->
+        <ion-list>
+          <ion-list-header>Nearby Players</ion-list-header>
+          <ion-item *ngFor="let player of nearbyPlayers" (click)="goToPlayerPage(player)">
+            <ion-thumbnail item-start>
+              <img src="https://firebasestorage.googleapis.com/v0/b/pogo-pal-1532794775743.appspot.com/o/andrew.jpg?alt=media&token=c401c972-fd26-45e8-8caa-2a8524c6050b">
+            </ion-thumbnail>
+            <h2>{{ player.un }}</h2>
+            <p>Within {{ getCeilDistance(player.queryMetadata.distance) }} Mi.</p>
+            <!-- <button ion-button clear item-end>Chat</button> -->
+            <button ion-button clear item-end><img></button>
+            <img src="./assets/imgs/{{player?.t}}.svg" clear item-end alt="" width="50">
+          </ion-item>
+        </ion-list>
+      <!-- </ion-scroll> -->
       {{ lastIdiot }}
       {{ wasteEater }}
       <ion-item *ngIf="!isLocatorActive">

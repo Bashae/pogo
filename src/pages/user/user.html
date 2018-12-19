@@ -4,10 +4,9 @@
   </ion-navbar>
 </ion-header>
 
-
-<ion-content>
-  <div style="background-color:#3B4cca;padding:20px;position: relative;">
-    <img src="assets/imgs/mystic-inverse.svg" width="100" alt="">
+<ion-content class="image-container--user">
+  <div style="padding:20px;position: relative;" [class]="player.t">
+    <img src="./assets/imgs/{{player?.t}}-inverse.svg" width="100" alt="">
     
     <div style="position: absolute;right: 35px;bottom: -50px;width: 150px;border-radius:50%;overflow: hidden;border:10px solid white;z-index: 5;">
       <img src="https://firebasestorage.googleapis.com/v0/b/pogo-pal-1532794775743.appspot.com/o/andrew.jpg?alt=media&token=c401c972-fd26-45e8-8caa-2a8524c6050b" alt="">
@@ -24,8 +23,8 @@
     </ion-item>
     <ion-item>
       <h1>Real Name</h1>
-      <h2>Kayla Sarahs</h2>
+      <h2>{{ player.n }}</h2>
     </ion-item>
-    <button ion-button round>Follow User</button>
+    <button ion-button round style="background: #333;">Follow User</button>
   </ion-list>
 </ion-content>

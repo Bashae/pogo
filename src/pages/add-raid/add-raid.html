@@ -181,7 +181,7 @@
       <h2>So, we're adding a Group at:</h2>
       <h3>Location Place</h3>
       <h2>Would you like to add an image of the location?</h2>
-      <button ion-button round>Upload Image</button>
+      <button ion-button round (click)="takeImage()">Upload Image</button>
     </ion-slide>
     <ion-slide *ngIf="additionType == 'event'">
       <ion-list class="slide--event">

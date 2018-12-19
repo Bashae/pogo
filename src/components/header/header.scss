@@ -1,5 +1,5 @@
 .universal-header {
-    background: $mystic;
+    background: red;
     position: relative;
 
     .grid { 
@@ -10,6 +10,10 @@
         height: auto;
         padding-top: 5px;
         padding-bottom: 5px;
+
+        &:hover:not(.disable-hover) {
+            background: transparent;
+        }
     }
 
     .col {

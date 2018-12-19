@@ -43,6 +43,10 @@ export class LoginPage {
     };
   }
 
+  openReportModal() {
+    // Create a modal/page that reports user info to database/email
+  }
+
   attemptLogin() {
     let credentials = this.setCredentials();
     if ( !credentials ) { return false; }

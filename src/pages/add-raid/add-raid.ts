@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import { Geolocation } from '@ionic-native/geolocation';
 import * as firebase from 'firebase/app';
 import { Slides } from 'ionic-angular';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
 
 import {
   GoogleMaps,
@@ -59,7 +61,8 @@ export class AddRaidPage {
   constructor(
     private geo: GeoProvider,
     public viewCtrl: ViewController,
-    public gymService: GymProvider
+    public gymService: GymProvider,
+    private camera: Camera
   ) {
     this.currentTitle = "What are we adding?";
     this.currentSlide = 1;
@@ -109,6 +112,25 @@ export class AddRaidPage {
     loc.pos.geopoint = new firebase.firestore.GeoPoint(loc.pos.geopoint[0], loc.pos.geopoint[1])
     this.nextSlide();
     console.log(loc);
+  }
+
+  takeImage() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    
+    this.camera.getPicture(options).then((imageData) => {
+     // imageData is either a base64 encoded string or a file URI
+     // If it's base64 (DATA_URL):
+     let base64Image = 'data:image/jpeg;base64,' + imageData;
+     console.log('taking image');
+     console.log(base64Image);
+    }, (err) => {
+     // Handle error
+    });
   }
 
   addNewLocation() {

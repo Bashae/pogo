@@ -8,37 +8,47 @@ import { AuthProvider } from '../providers/auth/auth';
 import { GeoPage } from '../pages/geo/geo';
 import { LoginPage } from '../pages/login/login';
 import { GeoProvider } from '../providers/geo/geo';
+import { UserProvider } from '../providers/user/user';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav;
-  rootPage:any = HomePage;
+  rootPage:any;
   isLocatorActive: boolean;
 
   constructor(
     platform: Platform, 
     statusBar: StatusBar, 
     splashScreen: SplashScreen,
-    private auth: AuthProvider,
-    private geo: GeoProvider,
-    public changeDetector: ChangeDetectorRef
+    public auth: AuthProvider,
+    public geo: GeoProvider,
+    public changeDetector: ChangeDetectorRef,
+    public user: UserProvider
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+
+      this.auth.afAuth.authState.subscribe(user => {
+        if ( user && user !== null ) {
+          if(platform.is('android')) {
+            if(this.geo.checkLocatorPermissions()) {
+              this.setUserLocation();
+            } else {
+              // show a message about activating location.
+            }
+          }
+          this.rootPage = HomePage;
+        } else {
+          this.rootPage = LoginPage;
+        }
+      })
+      
+      // Hide Splash after auth && || location return
       statusBar.styleDefault();
       splashScreen.hide();
-      if(platform.is('android')) {
-        if(this.geo.checkLocatorPermissions()) {
-          this.setUserLocation();
-        } else {
-          // show a message about activating location.
-        }
-      } else {
-        this.setUserLocation();
-      }
     });
     
     this.geo.isLocatorActive.subscribe(res => {

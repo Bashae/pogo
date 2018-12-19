@@ -28,6 +28,18 @@ $mystic: $mysticPrimaryColor;
 $valor: $valorPrimaryColor;
 $instinct: $instinctPrimaryColor;
 
+.Mystic {
+    background: $mystic;
+}
+
+.Valor {
+    background: $valor;
+}
+
+.Instinct {
+    background: $instinct;
+}
+
 .header--item {
     position: relative;
 }
@@ -83,6 +95,10 @@ $instinct: $instinctPrimaryColor;
     &.active {
         color: rgba(255, 255, 255, 1);
     }
+}
+
+.button:hover:not(.disable-hover) {
+    background: transparent;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Poppins');

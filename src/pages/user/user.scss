@@ -19,4 +19,16 @@ page-user {
             padding: 10px 0;
         }
     }
+
+    .image-container--user {
+        .Mystic {
+            background-color: $mysticPrimaryColor;
+        }
+        .Valor {
+            background-color: $valorPrimaryColor;
+        }
+        .Instinct {
+            background-color: $instinctPrimaryColor;
+        }
+    }
 }

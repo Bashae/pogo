@@ -1,3 +1,35 @@
 page-login {
+    .header--login {
+        text-align: center;
+    }
+    .title--login {
+        font-size: 36px;
+        margin-top: 100px !important;
+    }
+    .subtitle--login {
+        font-size: 20px;
+        margin-bottom: 50px;
+    }
+    .title--beta {
+        font-size: 12px;
+        font-weight: 400;
 
+        &:first-child {
+            margin-top: 75px;
+        }
+    }
+    .subtitle--beta {
+
+    }
+
+    .button--login {
+        background: white;
+        border: 1px solid red;
+        color: red;
+    }
+    .button--feedback {
+        margin: 10px auto 0 auto;
+        text-align: center;
+        display: block;
+    }
 }

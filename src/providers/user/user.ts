@@ -47,6 +47,10 @@ export class UserProvider {
     });
   }
 
+  getUser() {
+    return this.currentUser;
+  }
+
   getUserFriends(v) {
     let friends = this.friendCollection.ref
       .where('ui', '==', v.ui)

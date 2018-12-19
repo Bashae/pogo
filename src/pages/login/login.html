@@ -1,5 +1,7 @@
 <ion-content padding>
-  <ion-list *ngIf="!auth || !auth.user">
+  <ion-list *ngIf="!auth || !auth?.user">
+    <h1 class="pokefont  header--login  title--login">Pokemon Go Pal</h1>
+    <h2 class="pokefont  header--login  subtitle--login">Find Other Players near you!</h2>
     <ion-list inset>
       <ion-item>
         <ion-label>Username</ion-label>
@@ -13,13 +15,19 @@
     <ion-grid>
       <ion-row>
         <ion-col col-6>
-          <button ion-button class="button--sign-up" (click)="goToRegistrationPage()">Sign Up</button>
+          <button ion-button class="button--sign-up  button--login" (click)="goToRegistrationPage()">Sign Up</button>
         </ion-col>
         <ion-col col-6>
-          <button ion-button class="button--sign-in"(click)="attemptLogin()">Sign In</button>
+          <button ion-button class="button--sign-in  button--login" (click)="attemptLogin()">Sign In</button>
         </ion-col>
       </ion-row>
     </ion-grid>
+    <ion-item>
+      <h3 class="header--login  title--beta"><ion-icon name="alert"></ion-icon> &nbsp; This product is currently in it's beta stage.</h3>
+      <h4 class="header--login  title--beta subtitle--beta">Plenty of Bug Fixes and new features to come!</h4>
+      <h4 class="header--login  title--beta subtitle--beta">! This is an ad supported platform !</h4>
+      <button ion-button class="button--login  button--feedback" (click)="openReportModal()">Give us feedback / Submit a Bug</button>
+    </ion-item>
   </ion-list>
 </ion-content>
   
